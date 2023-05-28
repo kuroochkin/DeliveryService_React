@@ -23,5 +23,50 @@ const useOrderService = () => {
         return await request(url, 'POST', JSON.stringify(credentials), {'Content-Type': 'application/json'});
     }
 
+    const saveOrder = async(data) => {
+        const url = `${_apiBase}order/create`;
+        return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken()})
+    }
+
+    const getOrderById = async (id) => {
+        const res = await getResource(_apiBase + `order/${id}`);
+        console.log(res);
+        return res;
+    }
+
+    const GetAllOrdersByCustomer = async () => {
+        const res = await getResource(_apiBase + `order/customerOrders`);
+        return res;
+    }
+
+    const GetOrdersByCustomerByOrderStatus = async(status) => {
+        const res = await getResource(_apiBase + `order/customerOrders/${status}`);
+        console.log(res);
+        return res;
+    }
+
+    const GetAllOrdersByCourier = async () => {
+        const res = await getResource(_apiBase + `order/courierOrders`);
+        return res;
+    }
+
+    //ДОРАБОТАТЬ ПОДТВЕРЖДЕНИЕ ЗАКАЗА И ОТМЕНУ ЗАКАЗА
+
+    return {
+        error, 
+        clearError,
+        getToken,
+        getResource,
+        registerUser,
+        loginUser,
+        saveOrder,
+        getOrderById,
+        GetAllOrdersByCustomer,
+        GetOrdersByCustomerByOrderStatus,
+        GetAllOrdersByCourier
+    };
 }
+
+export default useOrderService;
 
