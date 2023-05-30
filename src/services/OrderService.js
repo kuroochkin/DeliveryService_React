@@ -2,7 +2,7 @@ import {useHttp} from '../hooks/http.hook';
 
 const useOrderService = () => {
     const {request, error, clearError} = useHttp();
-    const _apiBase = 'http://localhost:7038/api/';
+    const _apiBase = 'https://localhost:7038/api/';
 
     const getToken = () => {
         const tokenString = sessionStorage.getItem('token');
@@ -14,7 +14,7 @@ const useOrderService = () => {
     }
 
     const registerUser = async(credentials) => {
-        const url = `${_apiBase}auth/register`
+        const url = `${_apiBase}auth/register`;
         return await request(url, 'POST', JSON.stringify(credentials), {'Content-Type': 'application/json'});
     }
 
@@ -35,18 +35,18 @@ const useOrderService = () => {
         return res;
     }
 
-    const GetAllOrdersByCustomer = async () => {
+    const getAllOrdersByCustomer = async () => {
         const res = await getResource(_apiBase + `order/customerOrders`);
         return res;
     }
 
-    const GetOrdersByCustomerByOrderStatus = async(status) => {
+    const getOrdersByCustomerByOrderStatus = async(status) => {
         const res = await getResource(_apiBase + `order/customerOrders/${status}`);
         console.log(res);
         return res;
     }
 
-    const GetAllOrdersByCourier = async () => {
+    const getAllOrdersByCourier = async () => {
         const res = await getResource(_apiBase + `order/courierOrders`);
         return res;
     }
@@ -62,9 +62,9 @@ const useOrderService = () => {
         loginUser,
         saveOrder,
         getOrderById,
-        GetAllOrdersByCustomer,
-        GetOrdersByCustomerByOrderStatus,
-        GetAllOrdersByCourier
+        getAllOrdersByCustomer,
+        getOrdersByCustomerByOrderStatus,
+        getAllOrdersByCourier
     };
 }
 
