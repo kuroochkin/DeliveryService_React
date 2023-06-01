@@ -1,15 +1,17 @@
-import {Route, Routes, BrowserRouter } from "react-router-dom";
+import {Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import useToken from "../../hooks/useToken";
-import StartPage from "../../pages/StartPage";
-import RegisterForm from "../registerForm/RegisterForm";
 import AuthForm from "../authForm/AuthForm";
+import HomePage from "../../pages/home/HomePage";
+import OrdersPage from "../../pages/orders/OrdersPage";
+import SingleOrderPage from "../../pages/orders/SingleOrderPage";
+import Sidebar from "../sidebar/Sidebar";
 import './App.css';
 
 
 function App() {
 
-    const {token, setToken } = useToken();
+  const {token, setToken } = useToken();
 	const [isAuth, setIsAuth] = useState(false);
 
     if(!token && !isAuth) {
@@ -23,9 +25,14 @@ function App() {
 
     return (
       <div className="App">
-        
-        <h2>gdfgdfg</h2>
-        
+        <div className="sitebackground">
+        <Sidebar/>
+          <Routes>
+            <Route path="/" element={<HomePage/>}/>
+            <Route path="/orders" element={<OrdersPage/>}/>
+            <Route path="/orders/:orderId" element={<SingleOrderPage/>} />
+          </Routes> 
+        </div>
       </div>
     );
   }
