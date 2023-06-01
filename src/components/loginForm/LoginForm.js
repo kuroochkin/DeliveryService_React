@@ -23,12 +23,16 @@ const LoginForm = ({setToken, setIsAuth}) => {
 		  	password: password
 		});
 
+        console.log(data);
+
 		if (data?.status === 500){
 			e.target.reset(); 
 		}
 		else{
 			setToken(data.token);
+            console.log(data.token);
 			setIsAuth(true);
+            console.log(data.typeUser);
 			if (data.typeUser === 'Customer')
 				navigate('/');
 			else {
@@ -40,6 +44,16 @@ const LoginForm = ({setToken, setIsAuth}) => {
     useEffect(() => {
         clearError();
     }, [])
+
+    let errorMessage = (
+        <div>
+            <span style={{'color': '#ffffff', 'font-size': '1em'}}>
+                Произошла ошибка
+            </span>
+        </div>
+    )
+
+    errorMessage = error ? errorMessage : null;
 
     return(
         <div className="box">
@@ -59,7 +73,7 @@ const LoginForm = ({setToken, setIsAuth}) => {
                 <div className="button input">
                     <Button variant="contained" size="medium" type="submit">Авторизация</Button>
                 </div>     
-                {/* {errorMessage} */}
+                {errorMessage}
             </form>
         </div>
     )
