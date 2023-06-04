@@ -33,8 +33,9 @@ const LoginForm = ({setToken, setIsAuth}) => {
             console.log(data.token);
 			setIsAuth(true);
             console.log(data.typeUser);
-			if (data.typeUser === 'Customer')
-				navigate('/');
+			if (data.typeUser === 'Customer'){
+                navigate('/home'); 
+            }
 			else {
                 navigate('/courier');
             }
@@ -70,8 +71,9 @@ const LoginForm = ({setToken, setIsAuth}) => {
                         <input type="password" onChange={e => setPassword(e.target.value)}/>
                     </label>
                 </div>
+                
                 <div className="button input">
-                    <Button variant="contained" size="medium" type="submit">Авторизация</Button>
+                    <Button variant="contained" size="medium" type="submit">Войти!</Button>
                 </div>     
                 {errorMessage}
             </form>
