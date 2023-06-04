@@ -7,6 +7,7 @@ form{
     justify-content: space-between;
     align-items: center;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
+    margin-top: -10px;
 
     .input{
         p {
@@ -37,7 +38,7 @@ form{
             border-color:#333;
         }
 
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
     
     .button{

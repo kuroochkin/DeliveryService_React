@@ -1,16 +1,20 @@
-import {Route, Routes, BrowserRouter } from "react-router-dom";
+import {Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import useToken from "../../hooks/useToken";
-import StartPage from "../../pages/StartPage";
-import RegisterForm from "../registerForm/RegisterForm";
 import AuthForm from "../authForm/AuthForm";
+import HomePage from "../../pages/home/HomePage";
+import OrdersPage from "../../pages/orders/OrdersPage";
+import SingleOrderPage from "../../pages/orders/SingleOrderPage";
+import CartPage from "../../pages/cart/CartPage";
+import Sidebar from "../sidebar/Sidebar";
 import './App.css';
 
 
 function App() {
 
-    const {token, setToken } = useToken();
+  const {token, setToken } = useToken();
 	const [isAuth, setIsAuth] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
     if(!token && !isAuth) {
 		console.log('Токена нет')
@@ -23,9 +27,16 @@ function App() {
 
     return (
       <div className="App">
-        
-        <h2>gdfgdfg</h2>
-        
+        <div className="sitebackground">
+          <Sidebar setIsAuth={setIsAuth}/>
+            <Routes>
+              <Route path="/home" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
+              <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
+              <Route path="/orders" element={<OrdersPage/>}/>
+              <Route path="/orders/:orderId" element={<SingleOrderPage/>}/>
+              <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
+            </Routes> 
+        </div>
       </div>
     );
   }

@@ -6,7 +6,9 @@ const useOrderService = () => {
 
     const getToken = () => {
         const tokenString = sessionStorage.getItem('token');
+        console.log(JSON.parse(tokenString));
         return JSON.parse(tokenString);
+
     }
 
     const getResource = async(url) => {
@@ -36,18 +38,23 @@ const useOrderService = () => {
     }
 
     const getAllOrdersByCustomer = async () => {
-        const res = await getResource(_apiBase + `order/customerOrders`);
+        const res = await getResource('https://localhost:7038/api/order/customerOrders');
+        console.log(res);
         return res;
     }
 
     const getOrdersByCustomerByOrderStatus = async(status) => {
         const res = await getResource(_apiBase + `order/customerOrders/${status}`);
-        console.log(res);
         return res;
     }
 
     const getAllOrdersByCourier = async () => {
         const res = await getResource(_apiBase + `order/courierOrders`);
+        return res;
+    }
+
+    const getAllProducts = async () => {
+        const res = await getResource(_apiBase + `product/allProducts`);
         return res;
     }
 
@@ -64,9 +71,10 @@ const useOrderService = () => {
         getOrderById,
         getAllOrdersByCustomer,
         getOrdersByCustomerByOrderStatus,
-        getAllOrdersByCourier
+        getAllOrdersByCourier,
+        getAllProducts
     };
-}
+};
 
 export default useOrderService;
 

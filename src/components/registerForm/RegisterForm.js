@@ -1,6 +1,9 @@
 import useOrderService from "../../services/OrderService";
 import { useState, useEffect } from "react";
+
+import { Button } from "@mui/material";
 import "../style/style.scss";
+import './registerForm.scss';
 
 const RegisterForm = ({setToken}) => {
 
@@ -71,8 +74,9 @@ const RegisterForm = ({setToken}) => {
                         <input type="password" onChange={e => setPassword(e.target.value)}/>
                     </label>
                 </div>
-                {/* <div className="Button" type="submit">Зарегистрироваться!</div> */}
-                <button type="submit">Register</button>
+                <div className="button input">
+                    <Button variant="contained" size="medium" type="submit">Далее</Button>
+                </div>   
             </form>
         </div>
     )
