@@ -16,8 +16,6 @@ function App() {
 	const [isAuth, setIsAuth] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
-  console.log(typeof(setCartItems));
-
     if(!token && !isAuth) {
 		console.log('Токена нет')
 		return (

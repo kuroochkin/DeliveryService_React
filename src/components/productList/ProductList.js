@@ -21,10 +21,6 @@ const ProductList = ({cartItems, setCartItems}) => {
         return cartItems;
     }
 
-    console.log(typeof(setCartItems));
-    console.log(typeof(setData));
-
-
     const renderItems = (data) => {
         const items = data.products.map((item, i) => {
 
