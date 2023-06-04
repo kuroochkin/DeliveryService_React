@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './sidebar.scss';
 
 import {
@@ -9,9 +9,10 @@ import {
     from 'react-icons/fa';
 
 
-const Sidebar = () => {
+const Sidebar = ({setIsAuth}) => {
 
     const[isOpen ,setIsOpen] = useState(true);
+
     const toggle = () => setIsOpen (!isOpen);
 
     const menuItem=[   
@@ -24,16 +25,33 @@ const Sidebar = () => {
             path:"/orders",
             name:"Мои заказы",
             icon:<FaWeightHanging/>
+        },
+        {
+            path:"/cart",
+            name:"Корзина",
+            icon:<FaWeightHanging/>
+        },
+        {
+            path:"/login",
+            name:"Выход",
+            icon:<FaWeightHanging/>,
         }
         
     ]
 
+    const ExitAccount = () => {
+        sessionStorage.clear();
+        setIsAuth(false);
+    }
+
     return (
         <div className="container">
-           <div style={{width: isOpen ? "250px" : "50px"}} className="sidebar">
+           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
                <div className="top_section">
-                   <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Самокат</h1>
-                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
+                <Link to={"/home"}>
+                    <h1 style={{display: isOpen ? "block" : "none", "color": "white"}} className="logo">Самокат</h1>
+                </Link>
+                   <div style={{marginLeft: isOpen ? "25px" : "0px"}} className="bars">
                        <FaBars onClick={toggle}/>
                    </div>
                </div>
