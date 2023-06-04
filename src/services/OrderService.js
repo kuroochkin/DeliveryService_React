@@ -53,6 +53,11 @@ const useOrderService = () => {
         return res;
     }
 
+    const getAllProducts = async () => {
+        const res = await getResource(_apiBase + `product/allProducts`);
+        return res;
+    }
+
     //ДОРАБОТАТЬ ПОДТВЕРЖДЕНИЕ ЗАКАЗА И ОТМЕНУ ЗАКАЗА
 
     return {
@@ -66,7 +71,8 @@ const useOrderService = () => {
         getOrderById,
         getAllOrdersByCustomer,
         getOrdersByCustomerByOrderStatus,
-        getAllOrdersByCourier
+        getAllOrdersByCourier,
+        getAllProducts
     };
 };
 
