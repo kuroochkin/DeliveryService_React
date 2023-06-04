@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useOrderService from "../../services/OrderService";
-
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
 import './orderList.scss';
@@ -8,6 +7,7 @@ import './orderList.scss';
 const OrderList = () => {
     const [data, setData] = useState(null);
   	const [loading, setLoading] = useState(true);
+    const [Button, setButton] = useState(null);
 
   	const {getAllOrdersByCustomer} = useOrderService();
 
@@ -46,7 +46,7 @@ const OrderList = () => {
 
     const renderItems = (data) => {
         return (
-        
+            <>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -70,6 +70,8 @@ const OrderList = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </>
+
         )
     }
 
