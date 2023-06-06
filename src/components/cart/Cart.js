@@ -66,6 +66,10 @@ const Cart = ({cartItems, setCartItems}) => {
         ))
     }
 
+    const deleteProduct = (id) => {
+		setCartItems((cartItems) => cartItems.filter((product)=> id !== product.productId));
+	}
+
     const changeValue = (id) => {
         cartItems.forEach(product => {
             if(product.productId === id) {
@@ -73,10 +77,6 @@ const Cart = ({cartItems, setCartItems}) => {
             }
         })
     }
-
-    cartItems.forEach(element => {
-        console.log(element.count);
-    });
 
     const renderItems = (data) => {
 
@@ -119,8 +119,8 @@ const Cart = ({cartItems, setCartItems}) => {
                                     </div>
                                 <div class="product__price">{product.priceTotal}</div>
                                 <div class="product__controls">
-                                <button type="button">
-                                <div className="icon">{<FaRegTrashAlt/>}</div>
+                                <button type="button" onClick={() => deleteProduct(product.productId)}>
+                                    <div className="icon">{<FaRegTrashAlt/>}</div>
                                 </button>
                         </div>
                         </section>
@@ -146,10 +146,6 @@ const Cart = ({cartItems, setCartItems}) => {
     if(cartItems !== null){
         items = renderItems(cartItems);
     }
-
-    cartItems.forEach(element => {
-        console.log(element.count);
-    });
 
     return(
         <>
