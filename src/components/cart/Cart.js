@@ -1,13 +1,82 @@
+import { useState } from 'react';
 import './cart.scss';
 import {
     FaAngleUp,
-    FaAngleDown}
+    FaAngleDown,
+    FaRegTrashAlt}
     from 'react-icons/fa';
 
 const Cart = ({cartItems, setCartItems}) => {
 
-    console.log(cartItems);
-    console.log(cartItems);
+    cartItems.map(product => (+product.priceTotal));
+    cartItems.map(product => (+product.count));
+
+    cartItems.map(product => {
+        if(product.priceTotal === undefined)
+        {
+            product.priceTotal = parseFloat(product.price.replace(/\,/g, '.'));
+        } else { 
+            product.priceTotal = (product.count * parseFloat(product.price.replace(/\,/g, '.'))).toFixed(2);
+        }
+    })
+
+    cartItems.map(product => {
+        if(product.count === undefined)
+        {
+            product.count = 1;
+        }
+    })
+
+    let totalSum = 0;
+    let totalProducts = 0;
+    cartItems.map(product => {
+        totalSum = (totalSum + parseFloat(product.priceTotal));
+        totalProducts = (totalProducts + Number(product.count))
+    })
+    totalSum = totalSum.toFixed(2);
+   
+
+    const increase = (id) => {
+        setCartItems(cartItems => (
+            cartItems.map(product => {
+                if(product.productId === id) {
+                    return {
+                        ...product,
+                        count: product.count + 1,
+                        priceTotal: (product.count + 1) * product.price,
+                    };
+                }
+                return product;
+            })
+        ))
+    }
+
+    const decrease = (id) => {
+        setCartItems(cartItems => (
+            cartItems.map(product => {
+                if(product.productId === id) {
+                    return {
+                        ...product,
+                        count: product.count - 1,
+                        priceTotal: (product.count - 1) * product.price,
+                    };
+                }
+                return product;
+            })
+        ))
+    }
+
+    const changeValue = (id) => {
+        cartItems.forEach(product => {
+            if(product.productId === id) {
+                return product.count;
+            }
+        })
+    }
+
+    cartItems.forEach(element => {
+        console.log(element.count);
+    });
 
     const renderItems = (data) => {
 
@@ -36,22 +105,22 @@ const Cart = ({cartItems, setCartItems}) => {
                                     <div class="product__count">
                                         <div class="count">
                                             <div class="count__box">
-                                                <input type="number" class="count__input" min="1" max="100" value="1"/>
+                                                <input type="number" onChange={()=>{changeValue(product.productId)}}class="count__input" min="1" max="100" value={product.count}/>
                                             </div>
                                             <div class="count__controls">
-                                                <button type="button" class="count__up">
+                                                <button type="button" onClick={() => increase(product.productId)} class="count__up">
                                                     <div className="icon">{<FaAngleUp/>}</div>
                                                 </button>
-                                                <button type="button" class="count__down">
-                                                <div className="icon">{<FaAngleDown/>}</div>
+                                                <button type="button" onClick={() => decrease(product.productId)} class="count__down">
+                                                    <div className="icon">{<FaAngleDown/>}</div>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                <div class="product__price">.</div>
+                                <div class="product__price">{product.priceTotal}</div>
                                 <div class="product__controls">
                                 <button type="button">
-                                    <img src="./img/icons/cross.svg" alt="Delete"/>
+                                <div className="icon">{<FaRegTrashAlt/>}</div>
                                 </button>
                         </div>
                         </section>
@@ -60,8 +129,8 @@ const Cart = ({cartItems, setCartItems}) => {
 
                 
                     <footer class="cart-footer">
-                        <div class="cart-footer__count"></div>
-                        <div class="cart-footer__price"></div>
+                        <div class="cart-footer__count">{totalProducts}</div>
+                        <div class="cart-footer__price">{totalSum}</div>
                     </footer>
                 </section>
 
@@ -77,6 +146,10 @@ const Cart = ({cartItems, setCartItems}) => {
     if(cartItems !== null){
         items = renderItems(cartItems);
     }
+
+    cartItems.forEach(element => {
+        console.log(element.count);
+    });
 
     return(
         <>
