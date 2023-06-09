@@ -9,6 +9,7 @@ import CartPage from "../../pages/cart/CartPage";
 import Sidebar from "../sidebar/Sidebar";
 import SidebarForCourier from "../sidebar/SidebarForCourier";
 import AllOrdersByCreatePage from "../../pages/courier/allOrdersByCreate/AllOrdersByCreatePage";
+import AllOrdersCourierByStatus from "../../pages/courier/allOrdersCourierByStatus/AllOrdersCourierByStatusPage";
 import './App.css';
 
 
@@ -52,6 +53,7 @@ function App() {
             <Routes>
               <Route path="/courier" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/allOrdersByCreate" element={<AllOrdersByCreatePage/>}/>
+              <Route path="/courierOrders/:status" element={<AllOrdersCourierByStatus/>}/>
             </Routes> 
         </div>
       </div>
