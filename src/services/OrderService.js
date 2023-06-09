@@ -55,8 +55,13 @@ const useOrderService = () => {
         return res;
     }
 
-    const getOrdersByCustomerByOrderStatus = async(status) => {
+    const getOrdersByCustomerByStatus = async(status) => {
         const res = await getResource(_apiBase + `order/customerOrders/${status}`);
+        return res;
+    }
+
+    const getOrdersByCourierByStatus = async(status) => {
+        const res = await getResource(_apiBase + `order/courierOrders/${status}`);
         return res;
     }
 
@@ -84,7 +89,8 @@ const useOrderService = () => {
         getOrderById,
         getAllOrdersByCreate,
         getAllOrdersByCustomer,
-        getOrdersByCustomerByOrderStatus,
+        getOrdersByCustomerByStatus,
+        getOrdersByCourierByStatus,
         getAllOrdersByCourier,
         getAllProducts
     };
