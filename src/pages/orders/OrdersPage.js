@@ -1,4 +1,3 @@
-import Sidebar from "../../components/sidebar/Sidebar";
 import OrderList from "../../components/orderList/OrderList";
 
 const OrdersPage = () => {

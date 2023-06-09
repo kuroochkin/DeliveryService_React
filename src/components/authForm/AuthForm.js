@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 
 
 
-const AuthForm = ({setToken, setIsAuth}) => {
+const AuthForm = ({setToken, setIsAuth, setTypeUser}) => {
 
     const [isLoginForm, setIsLoginForm] = useState(true);
 
@@ -21,7 +21,8 @@ const AuthForm = ({setToken, setIsAuth}) => {
                 <div className="ButtonLogin" disabled={isLoginForm} onClick={() => setIsLoginForm(true)}>Вход</div>
                 <div className="ButtonRegister" disabled={!isLoginForm} onClick={() => setIsLoginForm(false)}>Регистрация</div>
 
-            {isLoginForm ? <LoginForm setToken={setToken} setIsAuth={setIsAuth}/> : <RegisterForm setToken={setToken}/>} 
+            {isLoginForm ? <LoginForm setToken={setToken} setIsAuth={setIsAuth} setTypeUser={setTypeUser}/> 
+            : <RegisterForm setToken={setToken} setTypeUser={setTypeUser}/>} 
         </div>
         </>
     )
