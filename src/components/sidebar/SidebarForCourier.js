@@ -27,6 +27,16 @@ const SidebarForCourier = () => {
             path:"/allOrdersByCreate",
             name:"Непринятые заказы",
             icon:<FaWeightHanging/>
+        },
+        {
+            path:"/courierOrders/Progress",
+            name:"Действующие заказы",
+            icon:<FaWeightHanging/>
+        },
+        {
+            path:"/courierOrders/Complete",
+            name:"Завершенные заказы",
+            icon:<FaWeightHanging/>
         }
     ]
 
