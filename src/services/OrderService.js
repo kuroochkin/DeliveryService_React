@@ -25,8 +25,14 @@ const useOrderService = () => {
         return await request(url, 'POST', JSON.stringify(credentials), {'Content-Type': 'application/json'});
     }
 
-    const saveOrder = async(data) => {
+    const createOrder = async(data) => {
         const url = `${_apiBase}order/create`;
+        return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken()})
+    }
+
+    const confirmOrder = async(data) => {
+        const url = `${_apiBase}order/confirm`;
         return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + getToken()})
     }
@@ -37,14 +43,25 @@ const useOrderService = () => {
         return res;
     }
 
+    const getAllOrdersByCreate = async () => {
+        const res = await getResource(_apiBase + `order/allOrdersByCreate`);
+        console.log(res);
+        return res;
+    }
+
     const getAllOrdersByCustomer = async () => {
         const res = await getResource('https://localhost:7038/api/order/customerOrders');
         console.log(res);
         return res;
     }
 
-    const getOrdersByCustomerByOrderStatus = async(status) => {
+    const getOrdersByCustomerByStatus = async(status) => {
         const res = await getResource(_apiBase + `order/customerOrders/${status}`);
+        return res;
+    }
+
+    const getOrdersByCourierByStatus = async(status) => {
+        const res = await getResource(_apiBase + `order/courierOrders/${status}`);
         return res;
     }
 
@@ -67,10 +84,13 @@ const useOrderService = () => {
         getResource,
         registerUser,
         loginUser,
-        saveOrder,
+        createOrder,
+        confirmOrder,
         getOrderById,
+        getAllOrdersByCreate,
         getAllOrdersByCustomer,
-        getOrdersByCustomerByOrderStatus,
+        getOrdersByCustomerByStatus,
+        getOrdersByCourierByStatus,
         getAllOrdersByCourier,
         getAllProducts
     };

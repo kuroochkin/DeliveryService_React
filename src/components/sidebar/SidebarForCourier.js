@@ -11,7 +11,7 @@ import {
     from 'react-icons/fa';
 
 
-const Sidebar = () => {
+const SidebarForCourier = () => {
 
     const[isOpen ,setIsOpen] = useState(true);
 
@@ -24,19 +24,19 @@ const Sidebar = () => {
             icon:<FaUserAlt/>
         },
         {
-            path:"/orders",
-            name:"Мои заказы",
+            path:"/allOrdersByCreate",
+            name:"Непринятые заказы",
             icon:<FaWeightHanging/>
         },
         {
-            path:"/cart",
-            name:"Корзина",
-            icon:<FaShoppingCart/>
+            path:"/courierOrders/Progress",
+            name:"Действующие заказы",
+            icon:<FaWeightHanging/>
         },
         {
-            path:"/login",
-            name:"Выход",
-            icon:<FaSignOutAlt/>,
+            path:"/courierOrders/Complete",
+            name:"Завершенные заказы",
+            icon:<FaWeightHanging/>
         }
     ]
 
@@ -64,4 +64,4 @@ const Sidebar = () => {
     );
 }
 
-export default Sidebar;
+export default SidebarForCourier;

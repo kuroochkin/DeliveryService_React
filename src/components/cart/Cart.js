@@ -1,13 +1,111 @@
+import { useState } from 'react';
+import useOrderService from '../../services/OrderService';
 import './cart.scss';
+import { Button } from '@mui/material';
 import {
     FaAngleUp,
-    FaAngleDown}
+    FaAngleDown,
+    FaRegTrashAlt}
     from 'react-icons/fa';
 
 const Cart = ({cartItems, setCartItems}) => {
 
+    const [description, setDescription] = useState();
+
+    const {createOrder} = useOrderService();
+
+    cartItems.map(product => (+product.priceTotal));
+    cartItems.map(product => (+product.count));
+
+    cartItems.map(product => {
+        if(product.priceTotal === undefined)
+        {
+            product.priceTotal = parseFloat(product.price.replace(/\,/g, '.'));
+        } else { 
+            product.priceTotal = (product.count * parseFloat(product.price.replace(/\,/g, '.'))).toFixed(2);
+        }
+    })
+
+    cartItems.map(product => {
+        if(product.count === undefined)
+        {
+            product.count = 1;
+        }
+    })
+
+    let totalSum = 0;
+    let totalProducts = 0;
+    cartItems.map(product => {
+        totalSum = (totalSum + parseFloat(product.priceTotal));
+        totalProducts = (totalProducts + Number(product.count))
+    })
+    totalSum = totalSum.toFixed(2);
+   
+
+    const increase = (id) => {
+        setCartItems(cartItems => (
+            cartItems.map(product => {
+                if(product.productId === id) {
+                    return {
+                        ...product,
+                        count: product.count + 1,
+                        priceTotal: (product.count + 1) * product.price,
+                    };
+                }
+                return product;
+            })
+        ))
+    }
+
+    const decrease = (id) => {
+        setCartItems(cartItems => (
+            cartItems.map(product => {
+                if(product.productId === id) {
+                    return {
+                        ...product,
+                        count: product.count - 1,
+                        priceTotal: (product.count - 1) * product.price,
+                    };
+                }
+                return product;
+            })
+        ))
+    }
+
     console.log(cartItems);
-    console.log(cartItems);
+
+    const deleteProduct = (id) => {
+		setCartItems((cartItems) => cartItems.filter((product)=> id !== product.productId));
+	}
+
+    const changeValue = (id) => {
+        cartItems.forEach(product => {
+            if(product.productId === id) {
+                return product.count;
+            }
+        })
+    }
+
+    const handleSubmit = async e => {
+		e.preventDefault();
+
+        console.log(cartItems);
+        console.log(description);
+
+        
+		const data = await createOrder({
+			description: description,
+		});
+
+        console.log(data);
+
+		if (data?.status === 500){
+			e.target.reset(); 
+		}
+		else{
+			console.log('Все успешно!');
+		}
+	}
 
     const renderItems = (data) => {
 
@@ -36,22 +134,22 @@ const Cart = ({cartItems, setCartItems}) => {
                                     <div class="product__count">
                                         <div class="count">
                                             <div class="count__box">
-                                                <input type="number" class="count__input" min="1" max="100" value="1"/>
+                                                <input type="number" onChange={()=>{changeValue(product.productId)}}class="count__input" min="1" max="100" value={product.count}/>
                                             </div>
                                             <div class="count__controls">
-                                                <button type="button" class="count__up">
+                                                <button type="button" onClick={() => increase(product.productId)} class="count__up">
                                                     <div className="icon">{<FaAngleUp/>}</div>
                                                 </button>
-                                                <button type="button" class="count__down">
-                                                <div className="icon">{<FaAngleDown/>}</div>
+                                                <button type="button" onClick={() => decrease(product.productId)} class="count__down">
+                                                    <div className="icon">{<FaAngleDown/>}</div>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                <div class="product__price">.</div>
+                                <div class="product__price">{product.priceTotal}</div>
                                 <div class="product__controls">
-                                <button type="button">
-                                    <img src="./img/icons/cross.svg" alt="Delete"/>
+                                <button type="button" onClick={() => deleteProduct(product.productId)}>
+                                    <div className="icon">{<FaRegTrashAlt/>}</div>
                                 </button>
                         </div>
                         </section>
@@ -60,10 +158,22 @@ const Cart = ({cartItems, setCartItems}) => {
 
                 
                     <footer class="cart-footer">
-                        <div class="cart-footer__count"></div>
-                        <div class="cart-footer__price"></div>
+                        <div class="cart-footer__count">{totalProducts}</div>
+                        <div class="cart-footer__price">{totalSum}</div>
                     </footer>
                 </section>
+
+                <form onSubmit={handleSubmit}> 
+                    <div className="email input">
+                        <label>
+                            <p>Описание</p>
+                            <input type="text" onChange={e => setDescription(e.target.value)}/>
+                        </label>
+                    </div>
+                    <div className="button input">
+                        <Button variant="contained" size="medium" type="submit">Заказать!</Button>
+                    </div>     
+                </form>
 
             </div>
         </div>
@@ -74,8 +184,14 @@ const Cart = ({cartItems, setCartItems}) => {
     }
 
     let items;
-    if(cartItems !== null){
+    if(cartItems.length > 0){
         items = renderItems(cartItems);
+    } else {
+        return (
+            <div class="container1">
+                <h1 class="title-1">Корзина пуста</h1>
+            </div>
+        )
     }
 
     return(

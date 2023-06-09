@@ -1,24 +1,27 @@
+import useOrderService from "../../../services/OrderService";
 import { useState, useEffect } from "react";
-import useOrderService from "../../services/OrderService";
+import { useParams } from "react-router-dom";
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
-import './orderList.scss';
+import './allOrdersCourierByStatusPage.scss';
 
-const OrderList = ({setIsAuth}) => {
 
+const AllOrdersCourierByStatus = () => {
+    
     const [data, setData] = useState(null);
-  	const [loading, setLoading] = useState(true);
     const [Button, setButton] = useState(null);
 
-  	const {getAllOrdersByCustomer} = useOrderService();
+    const {status} = useParams();
+
+    const {getOrdersByCourierByStatus} = useOrderService();
 
     useEffect(() => {
-        getAllOrdersByCustomer()
+        getOrdersByCourierByStatus(status)
             .then(data => setData(data))
-            .then(setLoading(false));
-	  }, []);
+	}, []);
 
     console.log(data);
+
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -53,20 +56,20 @@ const OrderList = ({setIsAuth}) => {
                     <TableHead>
                         <StyledTableRow>
                             <StyledTableCell align="center">Дата создания</StyledTableCell>
-                            <StyledTableCell align="center">Дата доставки</StyledTableCell>
                             <StyledTableCell align="center">Статус</StyledTableCell>
                             <StyledTableCell align="center">Описание</StyledTableCell>
-                            <StyledTableCell align="center">Курьер</StyledTableCell>
+                            <StyledTableCell align="center">Заказчик</StyledTableCell>
+                            
+
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
                         {data.orders.map((order) => (
-                            <StyledTableRow>
+                            <StyledTableRow >
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
-                                <StyledTableCell align="center">{order.status === 'Complete' ?  (order.end.slice(0,10) + ' '+ order.end.slice(11,16)) : '...'}</StyledTableCell>
-                                <StyledTableCell align="center">{order.status === 'Create' ? 'Обрабатываем...' : (order.status === 'Progress' ? 'Курьер в пути!' : 'Заказ доставлен!') }</StyledTableCell>
+                                <StyledTableCell align="center">Ожидает курьера</StyledTableCell>
                                 <StyledTableCell align="center">{order.description}</StyledTableCell>
-                                <StyledTableCell align="center">{order.courier.lastName ? (order.courier.firstName + ' ' + order.courier.lastName) : 'Подбираем курьера' }</StyledTableCell>
+                                <StyledTableCell align="center">{order.customer.firstName + ' ' + order.customer.lastName}</StyledTableCell>
                             </StyledTableRow>))}
                     </TableBody>
                 </Table>
@@ -90,6 +93,4 @@ const OrderList = ({setIsAuth}) => {
     )
 }
 
-export default OrderList;
-
-
+export default AllOrdersCourierByStatus;

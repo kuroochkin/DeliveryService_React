@@ -7,7 +7,7 @@ import "../style/style.scss";
 
 import useOrderService from "../../services/OrderService";
 
-const LoginForm = ({setToken, setIsAuth}) => {
+const LoginForm = ({setToken, setIsAuth, setTypeUser}) => {
     const {loginUser, error, clearError} = useOrderService();
     const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ const LoginForm = ({setToken, setIsAuth}) => {
             console.log(data.token);
 			setIsAuth(true);
             console.log(data.typeUser);
+            setTypeUser(data.typeUser);
 			if (data.typeUser === 'Customer'){
                 navigate('/home'); 
             }
