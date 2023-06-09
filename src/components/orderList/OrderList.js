@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import './orderList.scss';
 
 const OrderList = ({setIsAuth}) => {
-  
+
     const [data, setData] = useState(null);
   	const [loading, setLoading] = useState(true);
     const [Button, setButton] = useState(null);
@@ -61,7 +61,7 @@ const OrderList = ({setIsAuth}) => {
                     </TableHead>
                     <TableBody>
                         {data.orders.map((order) => (
-                            <StyledTableRow >
+                            <StyledTableRow>
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
                                 <StyledTableCell align="center">{order.status === 'Complete' ?  (order.end.slice(0,10) + ' '+ order.end.slice(11,16)) : '...'}</StyledTableCell>
                                 <StyledTableCell align="center">{order.status === 'Create' ? 'Обрабатываем...' : (order.status === 'Progress' ? 'Курьер в пути!' : 'Заказ доставлен!') }</StyledTableCell>
