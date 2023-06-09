@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import useOrderService from '../../services/OrderService';
 import './cart.scss';
+import { Button } from '@mui/material';
 import {
     FaAngleUp,
     FaAngleDown,
@@ -7,6 +9,10 @@ import {
     from 'react-icons/fa';
 
 const Cart = ({cartItems, setCartItems}) => {
+
+    const [description, setDescription] = useState();
+
+    const {createOrder} = useOrderService();
 
     cartItems.map(product => (+product.priceTotal));
     cartItems.map(product => (+product.count));
@@ -66,6 +72,8 @@ const Cart = ({cartItems, setCartItems}) => {
         ))
     }
 
+    console.log(cartItems);
+
     const deleteProduct = (id) => {
 		setCartItems((cartItems) => cartItems.filter((product)=> id !== product.productId));
 	}
@@ -77,6 +85,27 @@ const Cart = ({cartItems, setCartItems}) => {
             }
         })
     }
+
+    const handleSubmit = async e => {
+		e.preventDefault();
+
+        console.log(cartItems);
+        console.log(description);
+
+        
+		const data = await createOrder({
+			description: description,
+		});
+
+        console.log(data);
+
+		if (data?.status === 500){
+			e.target.reset(); 
+		}
+		else{
+			console.log('Все успешно!');
+		}
+	}
 
     const renderItems = (data) => {
 
@@ -134,6 +163,18 @@ const Cart = ({cartItems, setCartItems}) => {
                     </footer>
                 </section>
 
+                <form onSubmit={handleSubmit}> 
+                    <div className="email input">
+                        <label>
+                            <p>Описание</p>
+                            <input type="text" onChange={e => setDescription(e.target.value)}/>
+                        </label>
+                    </div>
+                    <div className="button input">
+                        <Button variant="contained" size="medium" type="submit">Заказать!</Button>
+                    </div>     
+                </form>
+
             </div>
         </div>
     </section>
@@ -143,8 +184,14 @@ const Cart = ({cartItems, setCartItems}) => {
     }
 
     let items;
-    if(cartItems !== null){
+    if(cartItems.length > 0){
         items = renderItems(cartItems);
+    } else {
+        return (
+            <div class="container1">
+                <h1 class="title-1">Корзина пуста</h1>
+            </div>
+        )
     }
 
     return(

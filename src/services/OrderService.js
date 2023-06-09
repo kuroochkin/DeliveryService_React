@@ -25,7 +25,7 @@ const useOrderService = () => {
         return await request(url, 'POST', JSON.stringify(credentials), {'Content-Type': 'application/json'});
     }
 
-    const saveOrder = async(data) => {
+    const createOrder = async(data) => {
         const url = `${_apiBase}order/create`;
         return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + getToken()})
@@ -33,6 +33,12 @@ const useOrderService = () => {
 
     const getOrderById = async (id) => {
         const res = await getResource(_apiBase + `order/${id}`);
+        console.log(res);
+        return res;
+    }
+
+    const getAllOrdersByCreate = async () => {
+        const res = await getResource(_apiBase + `order/allOrdersByCreate`);
         console.log(res);
         return res;
     }
@@ -67,8 +73,9 @@ const useOrderService = () => {
         getResource,
         registerUser,
         loginUser,
-        saveOrder,
+        createOrder,
         getOrderById,
+        getAllOrdersByCreate,
         getAllOrdersByCustomer,
         getOrdersByCustomerByOrderStatus,
         getAllOrdersByCourier,
