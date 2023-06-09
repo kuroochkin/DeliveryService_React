@@ -62,6 +62,7 @@ const AllOrdersByCreate = () => {
                             <StyledTableCell align="center">Дата создания</StyledTableCell>
                             <StyledTableCell align="center">Статус</StyledTableCell>
                             <StyledTableCell align="center">Описание</StyledTableCell>
+                            <StyledTableCell align="center">Заказчик</StyledTableCell>
                             <StyledTableCell align="center">Принять заказ</StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
@@ -71,6 +72,7 @@ const AllOrdersByCreate = () => {
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
                                 <StyledTableCell align="center">Ожидает курьера</StyledTableCell>
                                 <StyledTableCell align="center">{order.description}</StyledTableCell>
+                                <StyledTableCell align="center">{order.customer.firstName + ' ' + order.customer.lastName}</StyledTableCell>
                                 <StyledTableCell align="center">
                                     <button type="button" onClick={() => AddOrderByCourier(order.orderId)} >
                                         <div className="icon">{<FaPlusCircle/>}</div>
