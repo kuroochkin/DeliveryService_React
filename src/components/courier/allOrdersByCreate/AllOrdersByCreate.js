@@ -2,6 +2,7 @@ import useOrderService from "../../../services/OrderService";
 import { useState, useEffect } from "react";
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
+import {FaPlusCircle} from 'react-icons/fa';
 import './allOrdersByCreate.scss';
 
 
@@ -10,7 +11,7 @@ const AllOrdersByCreate = () => {
     const [data, setData] = useState(null);
     const [Button, setButton] = useState(null);
 
-    const {getAllOrdersByCreate} = useOrderService();
+    const {getAllOrdersByCreate, confirmOrder} = useOrderService();
 
     useEffect(() => {
         getAllOrdersByCreate()
@@ -18,6 +19,13 @@ const AllOrdersByCreate = () => {
 	}, []);
 
     console.log(data);
+
+    const AddOrderByCourier = async id => {
+		
+        const data = await confirmOrder({
+            orderId: id
+        });
+	}
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -54,6 +62,7 @@ const AllOrdersByCreate = () => {
                             <StyledTableCell align="center">Дата создания</StyledTableCell>
                             <StyledTableCell align="center">Статус</StyledTableCell>
                             <StyledTableCell align="center">Описание</StyledTableCell>
+                            <StyledTableCell align="center">Принять заказ</StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
@@ -62,6 +71,11 @@ const AllOrdersByCreate = () => {
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
                                 <StyledTableCell align="center">Ожидает курьера</StyledTableCell>
                                 <StyledTableCell align="center">{order.description}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    <button type="button" onClick={() => AddOrderByCourier(order.orderId)} >
+                                        <div className="icon">{<FaPlusCircle/>}</div>
+                                    </button>
+                                </StyledTableCell>
                             </StyledTableRow>))}
                     </TableBody>
                 </Table>
@@ -70,6 +84,7 @@ const AllOrdersByCreate = () => {
 
         )
     }
+
 
     let items;
 

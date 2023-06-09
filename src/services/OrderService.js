@@ -31,6 +31,12 @@ const useOrderService = () => {
         'Authorization': 'Bearer ' + getToken()})
     }
 
+    const confirmOrder = async(data) => {
+        const url = `${_apiBase}order/confirm`;
+        return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken()})
+    }
+
     const getOrderById = async (id) => {
         const res = await getResource(_apiBase + `order/${id}`);
         console.log(res);
@@ -74,6 +80,7 @@ const useOrderService = () => {
         registerUser,
         loginUser,
         createOrder,
+        confirmOrder,
         getOrderById,
         getAllOrdersByCreate,
         getAllOrdersByCustomer,
