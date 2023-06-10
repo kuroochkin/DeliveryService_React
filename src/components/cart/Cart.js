@@ -203,6 +203,7 @@ const Cart = ({cartItems, setCartItems}) => {
         {items}
         </>
     )
+
 }  
 
 
