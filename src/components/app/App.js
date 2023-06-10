@@ -18,19 +18,20 @@ function App() {
   const {token, setToken } = useToken();
 	const [isAuth, setIsAuth] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [typeUser, setTypeUser] = useState();
 
 
     if(!token && !isAuth) {
 		console.log('Токена нет')
 		return (
 			<>
-				<AuthForm setToken={setToken} setIsAuth={setIsAuth} setTypeUser={setTypeUser} />
+				<AuthForm setToken={setToken} setIsAuth={setIsAuth} />
 			</>
 		)	
 	}
 
-  if(typeUser === 'Customer'){
+  const user = sessionStorage.getItem('typeUser')
+
+  if(user === 'Customer'){
     return (
       <div className="App">
         <div className="sitebackground">
@@ -46,7 +47,7 @@ function App() {
       </div>
     );
   }  
-  else if (typeUser === 'Courier') {
+  if(user === 'Courier') {
     return (
       <div className="App">
         <div className="sitebackground">

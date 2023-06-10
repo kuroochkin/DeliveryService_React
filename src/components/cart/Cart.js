@@ -61,7 +61,7 @@ const Cart = ({cartItems, setCartItems}) => {
         setCartItems(cartItems => (
             cartItems.map(product => {
                 if(product.productId === id) {
-                    if(product.count === 1){
+                    if(product.count == 1 || product.count == 0){
                         deleteProduct(id);
                     }
                     return {
