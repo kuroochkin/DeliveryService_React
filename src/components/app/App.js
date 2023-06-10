@@ -45,7 +45,8 @@ function App() {
         </div>
       </div>
     );
-  }  else {
+  }  
+  else if (typeUser === 'Courier') {
     return (
       <div className="App">
         <div className="sitebackground">
