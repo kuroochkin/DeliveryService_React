@@ -99,7 +99,13 @@ const Cart = ({cartItems, setCartItems}) => {
         
         const data1 = {
             description: description,
-            products: []
+            products: [
+                {
+                    productId: '10001',
+                    totalPrice: '100',
+                    count: '2'
+                }   
+            ]
         };
 
         for (let i = 0; i < cartItems.length; i++) {
@@ -123,6 +129,7 @@ const Cart = ({cartItems, setCartItems}) => {
 
         setCartItems(cartItems => cartItems = []);
 	}
+
 
     const renderItems = (data) => {
 
