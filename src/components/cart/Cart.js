@@ -99,13 +99,7 @@ const Cart = ({cartItems, setCartItems}) => {
         
         const data1 = {
             description: description,
-            products: [
-                {
-                    productId: "10001",
-                    totalPrice: "120",
-                    count: "1"
-                }
-            ]
+            products: []
         };
 
         for (let i = 0; i < cartItems.length; i++) {
@@ -136,7 +130,7 @@ const Cart = ({cartItems, setCartItems}) => {
             <section class="section-cart">
                 <header class="section-cart__header">
                     <div class="container1">
-                        <h1 class="title-1">Корзина товаров</h1>
+                        <h3 class="title-2">Корзина товаров</h3>
                     </div>
                 </header>
 
@@ -169,7 +163,7 @@ const Cart = ({cartItems, setCartItems}) => {
                                             </div>
                                         </div>
                                     </div>
-                                <div class="product__price">{product.priceTotal}</div>
+                                <div class="product__price">{product.priceTotal + `₽`}</div>
                                 <div class="product__controls">
                                 <button type="button" onClick={() => deleteProduct(product.productId)}>
                                     <div className="icon">{<FaRegTrashAlt/>}</div>
@@ -182,15 +176,15 @@ const Cart = ({cartItems, setCartItems}) => {
                 
                     <footer class="cart-footer">
                         <div class="cart-footer__count">{totalProducts}</div>
-                        <div class="cart-footer__price">{totalSum}</div>
+                        <div class="cart-footer__price">{totalSum + `₽`}</div>
                     </footer>
                 </section>
 
                 <form onSubmit={handleSubmit}> 
-                    <div className="email input">
+                    <div className="input">
                         <label>
                             <p>Описание</p>
-                            <input type="text" onChange={e => setDescription(e.target.value)}/>
+                            <input type="text" style={{"width": 700}} onChange={e => setDescription(e.target.value)}/>
                         </label>
                     </div>
                     <div className="button input">
