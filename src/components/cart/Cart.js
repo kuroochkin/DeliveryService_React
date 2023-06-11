@@ -97,9 +97,26 @@ const Cart = ({cartItems, setCartItems}) => {
         console.log(description);
 
         
-		const data = await createOrder({
-			description: description,
-		});
+        const data1 = {
+            description: description,
+            products: [
+                {
+                    productId: "10001",
+                    totalPrice: "120",
+                    count: "1"
+                }
+            ]
+        };
+
+        for (let i = 0; i < cartItems.length; i++) {
+            data1.products[i] = {};
+            cartItems[i].priceTotal = cartItems[i].priceTotal.replace(/\./g, ',');
+            data1.products[i].productId = cartItems[i].productId;
+            data1.products[i].totalPrice = cartItems[i].priceTotal;
+            data1.products[i].count = String(cartItems[i].count);
+        }
+
+		const data = await createOrder(data1);
 
         console.log(data);
 
@@ -109,6 +126,8 @@ const Cart = ({cartItems, setCartItems}) => {
 		else{
 			console.log('Все успешно!');
 		}
+
+        setCartItems(cartItems => cartItems = []);
 	}
 
     const renderItems = (data) => {
