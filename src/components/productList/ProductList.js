@@ -31,7 +31,7 @@ const ProductList = ({cartItems, setCartItems}) => {
                     <img src={'./img/' + item.thumbnail} alt={item.title} className="products__item-img"/>
                     <div className="products__item-name">{item.title} </div>
                     <div className="products__item-price">{item.price + "₽"}</div>
-                    <Button onClick={() => addCart(item)}>В корзину</Button>
+                    <Button onClick={() => addCart(item)} disabled={cartItems.some(o => o.productId === item.productId)}>В корзину</Button>
                 </li>
             )
         }) 
