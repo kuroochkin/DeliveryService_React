@@ -37,6 +37,12 @@ const useOrderService = () => {
         'Authorization': 'Bearer ' + getToken()})
     }
 
+    const completeOrder = async(data) => {
+        const url = `${_apiBase}order/complete`;
+        return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken()})
+    }
+
     const getOrderById = async (id) => {
         const res = await getResource(_apiBase + `order/${id}`);
         console.log(res);
@@ -60,8 +66,13 @@ const useOrderService = () => {
         return res;
     }
 
-    const getOrdersByCourierByStatus = async(status) => {
-        const res = await getResource(_apiBase + `order/courierOrders/${status}`);
+    const getOrdersByCourierByOrderProgress = async() => {
+        const res = await getResource(_apiBase + `order/courierOrders/Progress`);
+        return res;
+    }
+
+    const getOrdersByCourierByOrderComplete = async() => {
+        const res = await getResource(_apiBase + `order/courierOrders/Complete`);
         return res;
     }
 
@@ -86,11 +97,13 @@ const useOrderService = () => {
         loginUser,
         createOrder,
         confirmOrder,
+        completeOrder,
         getOrderById,
         getAllOrdersByCreate,
         getAllOrdersByCustomer,
         getOrdersByCustomerByStatus,
-        getOrdersByCourierByStatus,
+        getOrdersByCourierByOrderProgress,
+        getOrdersByCourierByOrderComplete,
         getAllOrdersByCourier,
         getAllProducts
     };

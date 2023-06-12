@@ -69,10 +69,14 @@ const AllOrdersByCreate = () => {
                     <TableBody>
                         {data.orders.map((order) => (
                             <StyledTableRow >
-                                <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    {order.created.slice(0,10) + ' '+ order.created.slice(11,16)}
+                                </StyledTableCell>
                                 <StyledTableCell align="center">Ожидает курьера</StyledTableCell>
                                 <StyledTableCell align="center">{order.description}</StyledTableCell>
-                                <StyledTableCell align="center">{order.customer.firstName + ' ' + order.customer.lastName}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    {order.customer.firstName + ' ' + order.customer.lastName}
+                                </StyledTableCell>
                                 <StyledTableCell align="center">
                                     <button type="button" onClick={() => AddOrderByCourier(order.orderId)} >
                                         <div className="icon">{<FaPlusCircle/>}</div>

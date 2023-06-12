@@ -4,13 +4,16 @@
     text-decoration: none;
 }
 .container{
-    display:flex;
+    position: fixed;
+    
+    margin-top: 0px;
 }
 main{
     width: 100%;
     padding: 20px;
 }
 .sidebar{
+
     background: #000;
     color: #fff;
     height: 100vh;
@@ -23,12 +26,14 @@ main{
     padding:20px 15px;
 }
 .logo{
+    margin-top: 5px;
     font-size: 25px;
 }
 .bars{
     display: flex;
     font-size: 25px;
     margin-left: 50px;
+    margin-top: 10px;
 }
 .link{
     display: flex;

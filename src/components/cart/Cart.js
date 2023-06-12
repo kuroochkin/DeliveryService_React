@@ -61,12 +61,16 @@ const Cart = ({cartItems, setCartItems}) => {
         setCartItems(cartItems => (
             cartItems.map(product => {
                 if(product.productId === id) {
+                    if(product.count == 1 || product.count == 0){
+                        deleteProduct(id);
+                    }
                     return {
                         ...product,
                         count: product.count - 1,
                         priceTotal: (product.count - 1) * product.price,
                     };
                 }
+
                 return product;
             })
         ))
@@ -93,9 +97,22 @@ const Cart = ({cartItems, setCartItems}) => {
         console.log(description);
 
         
-		const data = await createOrder({
-			description: description,
-		});
+        const data1 = {
+            description: description,
+            products: [
+                
+            ]
+        };
+
+        for (let i = 0; i < cartItems.length; i++) {
+            data1.products[i] = {};
+            cartItems[i].priceTotal = cartItems[i].priceTotal.replace(/\./g, ',');
+            data1.products[i].productId = cartItems[i].productId;
+            data1.products[i].totalPrice = cartItems[i].priceTotal;
+            data1.products[i].count = String(cartItems[i].count);
+        }
+
+		const data = await createOrder(data1);
 
         console.log(data);
 
@@ -105,7 +122,10 @@ const Cart = ({cartItems, setCartItems}) => {
 		else{
 			console.log('Все успешно!');
 		}
+
+        setCartItems(cartItems => cartItems = []);
 	}
+
 
     const renderItems = (data) => {
 
@@ -113,7 +133,7 @@ const Cart = ({cartItems, setCartItems}) => {
             <section class="section-cart">
                 <header class="section-cart__header">
                     <div class="container1">
-                        <h1 class="title-1">Корзина товаров</h1>
+                        <h3 class="title-2">Корзина товаров</h3>
                     </div>
                 </header>
 
@@ -146,7 +166,7 @@ const Cart = ({cartItems, setCartItems}) => {
                                             </div>
                                         </div>
                                     </div>
-                                <div class="product__price">{product.priceTotal}</div>
+                                <div class="product__price">{product.priceTotal + `₽`}</div>
                                 <div class="product__controls">
                                 <button type="button" onClick={() => deleteProduct(product.productId)}>
                                     <div className="icon">{<FaRegTrashAlt/>}</div>
@@ -159,15 +179,15 @@ const Cart = ({cartItems, setCartItems}) => {
                 
                     <footer class="cart-footer">
                         <div class="cart-footer__count">{totalProducts}</div>
-                        <div class="cart-footer__price">{totalSum}</div>
+                        <div class="cart-footer__price">{totalSum + `₽`}</div>
                     </footer>
                 </section>
 
                 <form onSubmit={handleSubmit}> 
-                    <div className="email input">
+                    <div className="input">
                         <label>
                             <p>Описание</p>
-                            <input type="text" onChange={e => setDescription(e.target.value)}/>
+                            <input type="text" style={{"width": 700}} onChange={e => setDescription(e.target.value)}/>
                         </label>
                     </div>
                     <div className="button input">
@@ -199,7 +219,7 @@ const Cart = ({cartItems, setCartItems}) => {
         {items}
         </>
     )
-}  
 
+}  
 
 export default Cart;

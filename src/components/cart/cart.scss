@@ -40,6 +40,7 @@
   h1, h2, h3, h4, h5, h6, p {
     font-size: inherit;
     font-weight: inherit;
+    margin-top: 30px;
   }
   
   ul, ul li {
@@ -105,6 +106,8 @@
     top: 0;
     padding: 70px 0 90px;
     justify-self: center;
+    margin-left: 200px;
+    margin-top: -20px;
   }
   
   .section-cart__header {
@@ -113,6 +116,14 @@
   }
   
   .title-1 {
+    font-size: 28px;
+    line-height: 1.3;
+    font-weight: 700;
+    margin-left: 650px;
+    margin-top: -200px;
+  }
+
+  .title-2 {
     font-size: 28px;
     line-height: 1.3;
     font-weight: 700;

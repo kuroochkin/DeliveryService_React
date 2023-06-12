@@ -6,8 +6,9 @@ import {
     FaBars,
     FaUserAlt,
     FaWeightHanging,
-    FaSignOutAlt,
-    FaShoppingCart}
+    FaHourglassHalf,
+    FaRocket,
+    FaFlag}
     from 'react-icons/fa';
 
 
@@ -26,17 +27,17 @@ const SidebarForCourier = () => {
         {
             path:"/allOrdersByCreate",
             name:"Непринятые заказы",
-            icon:<FaWeightHanging/>
+            icon:<FaHourglassHalf/>
         },
         {
             path:"/courierOrders/Progress",
             name:"Действующие заказы",
-            icon:<FaWeightHanging/>
+            icon:<FaRocket/>
         },
         {
             path:"/courierOrders/Complete",
             name:"Завершенные заказы",
-            icon:<FaWeightHanging/>
+            icon:<FaFlag/>
         }
     ]
 
@@ -44,7 +45,7 @@ const SidebarForCourier = () => {
         <div className="container">
            <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
                <div className="top_section">
-                <Link to={"/home"}>
+                <Link to={"/courier"}>
                     <h1 style={{display: isOpen ? "block" : "none", "color": "white"}} className="logo">Самокат</h1>
                 </Link>
                    <div style={{marginLeft: isOpen ? "25px" : "0px"}} className="bars">

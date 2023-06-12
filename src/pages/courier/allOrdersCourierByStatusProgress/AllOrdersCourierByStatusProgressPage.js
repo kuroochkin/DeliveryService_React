@@ -1,28 +1,25 @@
+import useOrderService from "../../../services/OrderService";
 import { useState, useEffect } from "react";
-import useOrderService from "../../services/OrderService";
-import { Button } from "@mui/material";
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
-import { useNavigate, useParams } from "react-router-dom";
-import './orderList.scss';
+import {FaCheck} from 'react-icons/fa';
+import './allOrdersCourierByStatusProgressPage.scss';
 
-const OrderList = ({setIsAuth}) => {
 
+const AllOrdersCourierByStatusProgress = () => {
+    
     const [data, setData] = useState(null);
-  	const [loading, setLoading] = useState(true);
+    const [Button, setButton] = useState(null);
 
-    const navigate = useNavigate();
-    const {status} = useParams();
-
-  	const {getAllOrdersByCustomer} = useOrderService();
+    const {getOrdersByCourierByOrderProgress, completeOrder} = useOrderService();
 
     useEffect(() => {
-        getAllOrdersByCustomer()
+        getOrdersByCourierByOrderProgress()
             .then(data => setData(data))
-            .then(setLoading(false));
-	  }, []);
+	}, []);
 
     console.log(data);
+
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -49,27 +46,15 @@ const OrderList = ({setIsAuth}) => {
         },
       }));
 
-     const navigateOrders = (status) => {
-        navigate(`/orders/${status}`);
-     }
+      const completeOrderByCourier = async id => {
+        const data = await completeOrder({
+            orderId: id
+        });
+      }
 
     const renderItems = (data) => {
         return (
             <>
-             <div className="button input">
-                    <Button variant="contained" size="medium" type="submit" 
-                        onClick={() => navigateOrders('Create')}>Созданные заказы
-                    </Button>
-                    
-                    <Button variant="contained" size="medium" type="submit" 
-                    onClick={() => navigateOrders('Progress')}>Заказы в пути
-                    </Button>
-
-                    <Button variant="contained" size="medium" type="submit" 
-                    onClick={() => navigateOrders('Complete')}>Завершенные заказы
-                    </Button>
-                </div>    
-                <p></p>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -78,17 +63,25 @@ const OrderList = ({setIsAuth}) => {
                             <StyledTableCell align="center">Дата доставки</StyledTableCell>
                             <StyledTableCell align="center">Статус</StyledTableCell>
                             <StyledTableCell align="center">Описание</StyledTableCell>
-                            <StyledTableCell align="center">Курьер</StyledTableCell>
+                            <StyledTableCell align="center">Заказчик</StyledTableCell>
+                            <StyledTableCell align="center">Завершить заказ</StyledTableCell>
+                            
+
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
                         {data.orders.map((order) => (
-                            <StyledTableRow>
+                            <StyledTableRow >
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
                                 <StyledTableCell align="center">{order.status === 'Complete' ?  (order.end.slice(0,10) + ' '+ order.end.slice(11,16)) : '...'}</StyledTableCell>
                                 <StyledTableCell align="center">{order.status === 'Create' ? 'Обрабатываем...' : (order.status === 'Progress' ? 'Курьер в пути!' : 'Заказ доставлен!') }</StyledTableCell>
                                 <StyledTableCell align="center">{order.description}</StyledTableCell>
-                                <StyledTableCell align="center">{order.courier.lastName ? (order.courier.firstName + ' ' + order.courier.lastName) : 'Подбираем курьера' }</StyledTableCell>
+                                <StyledTableCell align="center">{order.customer.firstName + ' ' + order.customer.lastName}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    <button type="button" onClick={() => completeOrderByCourier(order.orderId)} >
+                                        <div className="icon">{<FaCheck/>}</div>
+                                    </button>
+                                </StyledTableCell>
                             </StyledTableRow>))}
                     </TableBody>
                 </Table>
@@ -105,13 +98,11 @@ const OrderList = ({setIsAuth}) => {
     }
 
     return (
-        <div className='orderlist_container'>
+        <div className='order_list__container'>
             {data !== null ? items : null}
         </div>
         
     )
 }
 
-export default OrderList;
-
-
+export default AllOrdersCourierByStatusProgress;

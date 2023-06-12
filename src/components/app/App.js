@@ -9,7 +9,9 @@ import CartPage from "../../pages/cart/CartPage";
 import Sidebar from "../sidebar/Sidebar";
 import SidebarForCourier from "../sidebar/SidebarForCourier";
 import AllOrdersByCreatePage from "../../pages/courier/allOrdersByCreate/AllOrdersByCreatePage";
-import AllOrdersCourierByStatus from "../../pages/courier/allOrdersCourierByStatus/AllOrdersCourierByStatusPage";
+import AllOrdersCourierByStatusProgress from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusProgressPage";
+import AllOrdersCourierByStatusComplete from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusCompletePage";
+import OrdersCustomerByStatusPage from "../../pages/orders/OrdersCustomerByStatusPage";
 import './App.css';
 
 
@@ -18,19 +20,20 @@ function App() {
   const {token, setToken } = useToken();
 	const [isAuth, setIsAuth] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [typeUser, setTypeUser] = useState();
 
 
     if(!token && !isAuth) {
 		console.log('Токена нет')
 		return (
 			<>
-				<AuthForm setToken={setToken} setIsAuth={setIsAuth} setTypeUser={setTypeUser} />
+				<AuthForm setToken={setToken} setIsAuth={setIsAuth} />
 			</>
 		)	
 	}
 
-  if(typeUser === 'Customer'){
+  const user = sessionStorage.getItem('typeUser')
+
+  if(user === 'Customer'){
     return (
       <div className="App">
         <div className="sitebackground">
@@ -39,13 +42,15 @@ function App() {
               <Route path="/home" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
+              <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
               <Route path="/orders/:orderId" element={<SingleOrderPage/>}/>
               <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
             </Routes> 
         </div>
       </div>
     );
-  }  else {
+  }  
+  if(user === 'Courier') {
     return (
       <div className="App">
         <div className="sitebackground">
@@ -53,7 +58,8 @@ function App() {
             <Routes>
               <Route path="/courier" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/allOrdersByCreate" element={<AllOrdersByCreatePage/>}/>
-              <Route path="/courierOrders/:status" element={<AllOrdersCourierByStatus/>}/>
+              <Route path="/courierOrders/Progress" element={<AllOrdersCourierByStatusProgress/>}/>
+              <Route path="/courierOrders/Complete" element={<AllOrdersCourierByStatusComplete/>}/>
             </Routes> 
         </div>
       </div>

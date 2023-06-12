@@ -4,23 +4,21 @@ import { Button } from "@mui/material";
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { useNavigate, useParams } from "react-router-dom";
-import './orderList.scss';
+import './ordersCustomerByStatusPage.scss';
 
-const OrderList = ({setIsAuth}) => {
+const OrdersCustomerByStatusPage = () => {
 
     const [data, setData] = useState(null);
-  	const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
     const {status} = useParams();
 
-  	const {getAllOrdersByCustomer} = useOrderService();
+  	const {getOrdersByCustomerByStatus} = useOrderService();
 
     useEffect(() => {
-        getAllOrdersByCustomer()
+        getOrdersByCustomerByStatus(status)
             .then(data => setData(data))
-            .then(setLoading(false));
-	  }, []);
+	  }, [status]);
 
     console.log(data);
 
@@ -58,17 +56,23 @@ const OrderList = ({setIsAuth}) => {
             <>
              <div className="button input">
                     <Button variant="contained" size="medium" type="submit" 
-                        onClick={() => navigateOrders('Create')}>Созданные заказы
-                    </Button>
-                    
-                    <Button variant="contained" size="medium" type="submit" 
-                    onClick={() => navigateOrders('Progress')}>Заказы в пути
+                        onClick={() => navigateOrders('Create')}
+                        disabled={data.orders[0].status === 'Create' ? true : false}
+                        >Созданные заказы
                     </Button>
 
                     <Button variant="contained" size="medium" type="submit" 
-                    onClick={() => navigateOrders('Complete')}>Завершенные заказы
+                        onClick={() => navigateOrders('Progress')}
+                        disabled={data.orders[0].status === 'Progress' ? true : false}
+                        >Заказы в пути
                     </Button>
-                </div>    
+
+                    <Button variant="contained" size="medium" type="submit" 
+                        onClick={() => navigateOrders('Complete')}
+                        disabled={data.orders[0].status === 'Complete' ? true : false}
+                        >Завершенные заказы
+                    </Button>
+                </div>   
                 <p></p>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -105,13 +109,11 @@ const OrderList = ({setIsAuth}) => {
     }
 
     return (
-        <div className='orderlist_container'>
+        <div className='orderlist1_container'>
             {data !== null ? items : null}
         </div>
         
     )
 }
 
-export default OrderList;
-
-
+export default OrdersCustomerByStatusPage;
