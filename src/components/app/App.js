@@ -11,6 +11,7 @@ import SidebarForCourier from "../sidebar/SidebarForCourier";
 import AllOrdersByCreatePage from "../../pages/courier/allOrdersByCreate/AllOrdersByCreatePage";
 import AllOrdersCourierByStatusProgress from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusProgressPage";
 import AllOrdersCourierByStatusComplete from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusCompletePage";
+import OrdersCustomerByStatusPage from "../../pages/orders/OrdersCustomerByStatusPage";
 import './App.css';
 
 
@@ -41,6 +42,7 @@ function App() {
               <Route path="/home" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
+              <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
               <Route path="/orders/:orderId" element={<SingleOrderPage/>}/>
               <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
             </Routes> 
