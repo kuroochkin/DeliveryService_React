@@ -1,22 +1,19 @@
 import useOrderService from "../../../services/OrderService";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
-import './allOrdersCourierByStatusPage.scss';
+import './allOrdersCourierByStatusProgressPage.scss';
 
 
-const AllOrdersCourierByStatus = () => {
+const AllOrdersCourierByStatusComplete = () => {
     
     const [data, setData] = useState(null);
     const [Button, setButton] = useState(null);
 
-    const {status} = useParams();
-
-    const {getOrdersByCourierByStatus} = useOrderService();
+    const {getOrdersByCourierByOrderComplete} = useOrderService();
 
     useEffect(() => {
-        getOrdersByCourierByStatus(status)
+        getOrdersByCourierByOrderComplete()
             .then(data => setData(data))
 	}, []);
 
@@ -56,6 +53,7 @@ const AllOrdersCourierByStatus = () => {
                     <TableHead>
                         <StyledTableRow>
                             <StyledTableCell align="center">Дата создания</StyledTableCell>
+                            <StyledTableCell align="center">Дата доставки</StyledTableCell>
                             <StyledTableCell align="center">Статус</StyledTableCell>
                             <StyledTableCell align="center">Описание</StyledTableCell>
                             <StyledTableCell align="center">Заказчик</StyledTableCell>
@@ -67,7 +65,8 @@ const AllOrdersCourierByStatus = () => {
                         {data.orders.map((order) => (
                             <StyledTableRow >
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
-                                <StyledTableCell align="center">Ожидает курьера</StyledTableCell>
+                                <StyledTableCell align="center">{order.status === 'Complete' ?  (order.end.slice(0,10) + ' '+ order.end.slice(11,16)) : '...'}</StyledTableCell>
+                                <StyledTableCell align="center">{order.status === 'Create' ? 'Обрабатываем...' : (order.status === 'Progress' ? 'Курьер в пути!' : 'Заказ доставлен!') }</StyledTableCell>
                                 <StyledTableCell align="center">{order.description}</StyledTableCell>
                                 <StyledTableCell align="center">{order.customer.firstName + ' ' + order.customer.lastName}</StyledTableCell>
                             </StyledTableRow>))}
@@ -93,4 +92,4 @@ const AllOrdersCourierByStatus = () => {
     )
 }
 
-export default AllOrdersCourierByStatus;
+export default AllOrdersCourierByStatusComplete;

@@ -9,7 +9,8 @@ import CartPage from "../../pages/cart/CartPage";
 import Sidebar from "../sidebar/Sidebar";
 import SidebarForCourier from "../sidebar/SidebarForCourier";
 import AllOrdersByCreatePage from "../../pages/courier/allOrdersByCreate/AllOrdersByCreatePage";
-import AllOrdersCourierByStatus from "../../pages/courier/allOrdersCourierByStatus/AllOrdersCourierByStatusPage";
+import AllOrdersCourierByStatusProgress from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusProgressPage";
+import AllOrdersCourierByStatusComplete from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusCompletePage";
 import './App.css';
 
 
@@ -55,7 +56,8 @@ function App() {
             <Routes>
               <Route path="/courier" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/allOrdersByCreate" element={<AllOrdersByCreatePage/>}/>
-              <Route path="/courierOrders/:status" element={<AllOrdersCourierByStatus/>}/>
+              <Route path="/courierOrders/Progress" element={<AllOrdersCourierByStatusProgress/>}/>
+              <Route path="/courierOrders/Complete" element={<AllOrdersCourierByStatusComplete/>}/>
             </Routes> 
         </div>
       </div>
