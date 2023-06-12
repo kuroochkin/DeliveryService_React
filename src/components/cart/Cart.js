@@ -100,11 +100,7 @@ const Cart = ({cartItems, setCartItems}) => {
         const data1 = {
             description: description,
             products: [
-                {
-                    productId: '10001',
-                    totalPrice: '100',
-                    count: '2'
-                }   
+                
             ]
         };
 
@@ -225,6 +221,5 @@ const Cart = ({cartItems, setCartItems}) => {
     )
 
 }  
-
 
 export default Cart;
