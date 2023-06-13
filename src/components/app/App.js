@@ -43,7 +43,7 @@ function App() {
               <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
               <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
-              <Route path="/orders/:orderId" element={<SingleOrderPage/>}/>
+              <Route path="/order/:orderId" element={<SingleOrderPage/>}/>
               <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
             </Routes> 
         </div>

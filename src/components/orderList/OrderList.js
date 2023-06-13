@@ -53,7 +53,7 @@ const OrderList = ({setIsAuth}) => {
         navigate(`/orders/${status}`);
      }
 
-    const renderItems = (data) => {
+     const renderItems = (data) => {
         return (
             <>
              <div className="button input">
@@ -70,7 +70,7 @@ const OrderList = ({setIsAuth}) => {
                     </Button>
                 </div>    
                 <p></p>
-            <TableContainer component={Paper}>
+                <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <StyledTableRow>
@@ -94,9 +94,9 @@ const OrderList = ({setIsAuth}) => {
                 </Table>
             </TableContainer>
             </>
-
         )
     }
+
 
     let items;
 
@@ -113,5 +113,3 @@ const OrderList = ({setIsAuth}) => {
 }
 
 export default OrderList;
-
-
