@@ -8,7 +8,7 @@ import {
     FaWeightHanging,
     FaHourglassHalf,
     FaRocket,
-    FaFlag}
+    FaFlag,}
     from 'react-icons/fa';
 
 
