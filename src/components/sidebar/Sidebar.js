@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './sidebar.scss';
 
 import {
@@ -11,11 +11,19 @@ import {
     from 'react-icons/fa';
 
 
-const Sidebar = () => {
+const Sidebar = ({setIsAuth}) => {
 
     const[isOpen ,setIsOpen] = useState(true);
 
+    const navigate = useNavigate();
+
     const toggle = () => setIsOpen (!isOpen);
+
+    const handleAuth = () => {
+        sessionStorage.clear();
+        setIsAuth(false);
+        navigate("/login");
+    }
 
     const menuItem=[   
         {
@@ -32,11 +40,6 @@ const Sidebar = () => {
             path:"/cart",
             name:"Корзина",
             icon:<FaShoppingCart/>
-        },
-        {
-            path:"/login",
-            name:"Выход",
-            icon:<FaSignOutAlt/>,
         }
     ]
 
@@ -59,7 +62,12 @@ const Sidebar = () => {
                        </NavLink>
                    ))
                }
+                <NavLink to="/login" className="link" onClick={() => handleAuth()} activeclassName="active">
+                    <div className="icon">{<FaSignOutAlt/>}</div>
+                    <div style={{display: isOpen ? "block" : "none"}} className="link_text">Выход</div>
+                </NavLink>
            </div>
+
         </div>
     );
 }

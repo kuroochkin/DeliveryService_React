@@ -1,22 +1,30 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './sidebar.scss';
 
 import {
     FaBars,
     FaUserAlt,
-    FaWeightHanging,
+    FaSignOutAlt,
     FaHourglassHalf,
     FaRocket,
     FaFlag,}
     from 'react-icons/fa';
 
 
-const SidebarForCourier = () => {
+const SidebarForCourier = ({setIsAuth}) => {
 
     const[isOpen ,setIsOpen] = useState(true);
 
+    const navigate = useNavigate();
+
     const toggle = () => setIsOpen (!isOpen);
+
+    const handleAuth = () => {
+        sessionStorage.clear();
+        setIsAuth(false);
+        navigate("/login");
+    }
 
     const menuItem=[   
         {
@@ -60,6 +68,10 @@ const SidebarForCourier = () => {
                        </NavLink>
                    ))
                }
+                <NavLink to="/login" className="link" onClick={() => handleAuth()} activeclassName="active">
+                    <div className="icon">{<FaSignOutAlt/>}</div>
+                    <div style={{display: isOpen ? "block" : "none"}} className="link_text">Выход</div>
+                </NavLink>
            </div>
         </div>
     );
