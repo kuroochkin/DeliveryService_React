@@ -19,6 +19,27 @@ const SingleOrderPage = () => {
 
     console.log(data);
 
+    // let totalPrice;
+    // data.products.map(product => {
+    //     totalPrice = totalPrice + (product.count * product.price);
+    // })
+
+    let count = 0;
+    const totalCount = () => {
+        data.products.map(product => {
+            count += (+product.count);
+        })
+        return count;
+    }
+
+    let total = 0
+    const totalPrice = () => {
+        data.products.map(product => {
+            product.totalPrice = parseFloat(product.totalPrice.replace(/\,/g, '.'));
+            total += (product.totalPrice);
+        })
+        return total;
+    }
     
 
     const renderItems = (data) => {
@@ -58,15 +79,15 @@ const SingleOrderPage = () => {
                                             <input type="number" class="count__input" value={product.count}/>                            
                                         </div>
                                     </div>
-                                <div class="product__price">{product.priceTotal + `₽`}</div>
+                                <div class="product__price">{product.totalPrice + `₽`}</div>
                                 <div class="product__controls">
                         </div>
                         </section>
                     ))}
 
                     <footer class="cart-footer">
-                        <div class="cart-footer__count">{12}</div>
-                        <div class="cart-footer__price">{ `₽`}</div>
+                        <div class="cart-footer__count">{totalCount()}</div>
+                        <div class="cart-footer__price">{totalPrice() + `₽`}</div>
                     </footer>
                 </section>
             </div>
