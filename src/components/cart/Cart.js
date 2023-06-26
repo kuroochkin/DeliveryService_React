@@ -110,6 +110,8 @@ const Cart = ({cartItems, setCartItems}) => {
             data1.products[i].productId = cartItems[i].productId;
             data1.products[i].totalPrice = cartItems[i].priceTotal;
             data1.products[i].count = String(cartItems[i].count);
+            data1.products[i].thumbnail = cartItems[i].thumbnail;
+            data1.products[i].title = cartItems[i].title;
         }
 
 		const data = await createOrder(data1);

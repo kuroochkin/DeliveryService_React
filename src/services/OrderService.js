@@ -86,7 +86,10 @@ const useOrderService = () => {
         return res;
     }
 
-    //ДОРАБОТАТЬ ПОДТВЕРЖДЕНИЕ ЗАКАЗА И ОТМЕНУ ЗАКАЗА
+    const getProductById = async (productId) => {
+        const res = await getResource(_apiBase + `product/${productId}`);
+        return res;
+    }
 
     return {
         error, 
@@ -105,7 +108,8 @@ const useOrderService = () => {
         getOrdersByCourierByOrderProgress,
         getOrdersByCourierByOrderComplete,
         getAllOrdersByCourier,
-        getAllProducts
+        getAllProducts,
+        getProductById
     };
 };
 

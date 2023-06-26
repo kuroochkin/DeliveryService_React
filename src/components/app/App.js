@@ -37,13 +37,13 @@ function App() {
     return (
       <div className="App">
         <div className="sitebackground">
-          <Sidebar/>
+          <Sidebar setIsAuth={setIsAuth}/>
             <Routes>
               <Route path="/home" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
               <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
-              <Route path="/orders/:orderId" element={<SingleOrderPage/>}/>
+              <Route path="/order/:orderId" element={<SingleOrderPage/>}/>
               <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
             </Routes> 
         </div>
@@ -54,7 +54,7 @@ function App() {
     return (
       <div className="App">
         <div className="sitebackground">
-          <SidebarForCourier/>
+          <SidebarForCourier setIsAuth={setIsAuth}/>
             <Routes>
               <Route path="/courier" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/allOrdersByCreate" element={<AllOrdersByCreatePage/>}/>
