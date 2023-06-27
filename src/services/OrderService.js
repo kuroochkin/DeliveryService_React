@@ -91,6 +91,16 @@ const useOrderService = () => {
         return res;
     }
 
+    const getAllSections = async () => {
+        const res = await getResource(_apiBase + `sections/allSections`);
+        return res;
+    }
+
+    const getProductsBySectionId = async (sectionId) => {
+        const res = await getResource(_apiBase + `product/allProducts/${sectionId}`);
+        return res;
+    }
+
     return {
         error, 
         clearError,
@@ -108,6 +118,8 @@ const useOrderService = () => {
         getOrdersByCourierByOrderProgress,
         getOrdersByCourierByOrderComplete,
         getAllOrdersByCourier,
+        getProductsBySectionId,
+        getAllSections,
         getAllProducts,
         getProductById
     };
