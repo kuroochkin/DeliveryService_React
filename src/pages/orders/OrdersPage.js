@@ -2,9 +2,9 @@ import OrderList from "../../components/orderList/OrderList";
 
 const OrdersPage = () => {
     return (
-        <div className="left_side">
-            <OrderList/>
-        </div>
+        <>
+        <OrderList/>
+        </>
     )
 }
 

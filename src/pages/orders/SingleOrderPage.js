@@ -41,7 +41,6 @@ const SingleOrderPage = () => {
         return total;
     }
     
-
     const renderItems = (data) => {
 
         return (
