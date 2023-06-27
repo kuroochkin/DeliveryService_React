@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useOrderService from "../../services/OrderService";
 import { Button } from "@mui/material";
@@ -6,14 +7,21 @@ import './productList.scss';
 
 const ProductList = ({cartItems, setCartItems}) => {
 
-    const [data, setData] = useState(null);
+    const [dataProducts, setDataProducts] = useState(null);
+    const [dataSections, setDataSections] = useState(null);
     
+    const navigate = useNavigate();
 
-    const {getAllProducts} = useOrderService();
+    const {getAllProducts, getAllSections} = useOrderService();
 
     useEffect(() => {
         getAllProducts()
-            .then(data => setData(data))
+            .then(dataProducts => setDataProducts(dataProducts));
+    }, []);
+
+    useEffect(() => {
+        getAllSections()
+            .then(dataSections => setDataSections(dataSections));
     }, []);
 
     const addCart = (item) => {
@@ -21,11 +29,30 @@ const ProductList = ({cartItems, setCartItems}) => {
         return cartItems;
     }
 
+    const navigateSection = (sectionId) => {
+        navigate(`/product/${sectionId}`);
+    }
+
+    const renderSections = (data) => {
+        const sections = data.sections.map(item => {
+            return(
+                <div className="button__input">
+                    <Button variant="contained" size="medium" type="submit"                       
+                        onClick={() => navigateSection(item.sectionId)}>{item.name}
+                    </Button>
+                </div>   
+            )
+        })
+
+        return sections;
+    }
+
     const renderItems = (data) => {
+        
         const items = data.products.map((item, i) => {
 
             return(
-                
+                <>
                 <li className="products__item" key={i}>
                     
                     <img src={'./img/' + item.thumbnail} alt={item.title} className="products__item-img"/>
@@ -33,6 +60,7 @@ const ProductList = ({cartItems, setCartItems}) => {
                     <div className="products__item-price">{item.price + "₽"}</div>
                     <Button onClick={() => addCart(item)} disabled={cartItems.some(o => o.productId === item.productId)}>В корзину</Button>
                 </li>
+                </>
             )
         }) 
 
@@ -43,20 +71,24 @@ const ProductList = ({cartItems, setCartItems}) => {
         )
     }
 
+    let sections;
+    if(dataSections !== null){
+        sections = renderSections(dataSections);
+    }
+
     let items;
-    if(data !== null){
-        items = renderItems(data);
+    if(dataProducts !== null){
+        items = renderItems(dataProducts);
     }
 
     console.log(cartItems);
     
     return (
         <div className="products__list">
+            {sections}
             {items}
         </div>
     )
-
-   
 }
 
 export default ProductList;
