@@ -186,10 +186,9 @@ const Cart = ({cartItems, setCartItems}) => {
                 </section>
 
                 <form onSubmit={handleSubmit}> 
-                    <div className="input">
+                    <div className="input1">
                         <label>
-                            <p>Описание</p>
-                            <input type="text" style={{"width": 700}} onChange={e => setDescription(e.target.value)}/>
+                            <input type="text" style={{"width": 700}} placeholder='Описание' onChange={e => setDescription(e.target.value)}/>
                         </label>
                     </div>
                     <div className="button input">
