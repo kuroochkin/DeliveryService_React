@@ -12,6 +12,7 @@ import AllOrdersByCreatePage from "../../pages/courier/allOrdersByCreate/AllOrde
 import AllOrdersCourierByStatusProgress from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusProgressPage";
 import AllOrdersCourierByStatusComplete from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusCompletePage";
 import OrdersCustomerByStatusPage from "../../pages/orders/OrdersCustomerByStatusPage";
+import ProductsBySectionPage from "../../pages/products/ProductsBySectionPage";
 import './App.css';
 
 
@@ -45,6 +46,7 @@ function App() {
               <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
               <Route path="/order/:orderId" element={<SingleOrderPage/>}/>
               <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
+              <Route path="/product/:sectionId" element={<ProductsBySectionPage cartItems={cartItems} setCartItems={setCartItems}/>}/>
             </Routes> 
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { useNavigate, useParams } from "react-router-dom";
+import {FaRegNewspaper} from 'react-icons/fa';
 import './orderList.scss';
 
 const OrderList = ({setIsAuth}) => {
@@ -52,6 +53,10 @@ const OrderList = ({setIsAuth}) => {
      const navigateOrders = (status) => {
         navigate(`/orders/${status}`);
      }
+     
+     const singlePage = (id) => {
+      navigate(`/order/${id}`)
+   }
 
      const renderItems = (data) => {
         return (
@@ -74,6 +79,7 @@ const OrderList = ({setIsAuth}) => {
                 <Table aria-label="simple table">
                     <TableHead>
                         <StyledTableRow>
+                            <StyledTableCell align="center">Информация</StyledTableCell>
                             <StyledTableCell align="center">Дата создания</StyledTableCell>
                             <StyledTableCell align="center">Дата доставки</StyledTableCell>
                             <StyledTableCell align="center">Статус</StyledTableCell>
@@ -84,6 +90,11 @@ const OrderList = ({setIsAuth}) => {
                     <TableBody>
                         {data.orders.map((order) => (
                             <StyledTableRow>
+                                <StyledTableCell align="center">
+                                    <button type="button" onClick={() => singlePage(order.orderId)} >
+                                        <div className="icon">{<FaRegNewspaper/>}</div>
+                                    </button>
+                                </StyledTableCell>
                                 <StyledTableCell align="center">{order.created.slice(0,10) + ' '+ order.created.slice(11,16)}</StyledTableCell>
                                 <StyledTableCell align="center">{order.status === 'Complete' ?  (order.end.slice(0,10) + ' '+ order.end.slice(11,16)) : '...'}</StyledTableCell>
                                 <StyledTableCell align="center">{order.status === 'Create' ? 'Обрабатываем...' : (order.status === 'Progress' ? 'Курьер в пути!' : 'Заказ доставлен!') }</StyledTableCell>

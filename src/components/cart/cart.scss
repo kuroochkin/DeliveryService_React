@@ -57,12 +57,20 @@
   }
   
   /* Form */
-  input, textarea, button, select {
+  textarea, button, select {
     font-family: inherit;
     font-size: inherit;
     color: inherit;
   }
-  
+
+  input[type=text] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
   input::-ms-clear {
     display: none;
   }

@@ -59,7 +59,7 @@ const OrdersCustomerByStatusPage = () => {
     const renderItems = (data) => {
         return (
             <>
-             <div className="button input">
+                <div className="button input">
                     <Button variant="contained" size="medium" type="submit" 
                         onClick={() => navigateOrders('Create')}
                         disabled={data.orders[0].status === 'Create' ? true : false}
@@ -120,7 +120,7 @@ const OrdersCustomerByStatusPage = () => {
     }
 
     return (
-        <div className='orderlist1_container'>
+        <div className='orderlist1__container'>
             {data !== null ? items : null}
         </div>
         

@@ -1,43 +1,45 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import useOrderService from "../../services/OrderService";
+import { useEffect } from "react";
 import { Button } from "@mui/material";
-import './productList.scss';
+import './productsBySectionPage.scss';
 
-const ProductList = ({cartItems, setCartItems}) => {
 
-    const [dataProducts, setDataProducts] = useState(null);
+const ProductsBySectionPage = ({cartItems, setCartItems}) => {
+
     const [dataSections, setDataSections] = useState(null);
-    
+    const [data, setData] = useState(null);
+
     const navigate = useNavigate();
+    const {sectionId} = useParams();
 
-    const {getAllProducts, getAllSections} = useOrderService();
-
-    useEffect(() => {
-        getAllProducts()
-            .then(dataProducts => setDataProducts(dataProducts));
-    }, []);
+    const {getProductsBySectionId, getAllSections} = useOrderService();
 
     useEffect(() => {
         getAllSections()
             .then(dataSections => setDataSections(dataSections));
     }, []);
 
-    const addCart = (item) => {
-        setCartItems(cartItems => [...cartItems, item])
-        return cartItems;
-    }
+    useEffect(() => {
+        getProductsBySectionId(sectionId)
+            .then(data => setData(data));
+    }, [sectionId]);
 
     const navigateSection = (sectionId) => {
         navigate(`/product/${sectionId}`);
-    }
+    };
+
+    const addCart = (item) => {
+        setCartItems(cartItems => [...cartItems, item]);
+        return cartItems;
+    };
 
     const renderSections = (data) => {
         const sections = data.sections.map(item => {
             return(
                 <div className="button__input">
-                    <Button variant="contained" size="medium" type="submit"                       
+                    <Button variant="contained" size="medium" type="submit" 
                         onClick={() => navigateSection(item.sectionId)}>{item.name}
                     </Button>
                 </div>   
@@ -55,7 +57,7 @@ const ProductList = ({cartItems, setCartItems}) => {
                 <>
                 <li className="products__item" key={i}>
                     
-                    <img src={'./img/' + item.thumbnail} alt={item.title} className="products__item-img"/>
+                    <img src={'../img/' + item.thumbnail} alt={item.title} className="products__item-img"/>
                     <div className="products__item-name">{item.title} </div>
                     <div className="products__item-price">{item.price + "₽"}</div>
                     <Button onClick={() => addCart(item)} disabled={cartItems.some(o => o.productId === item.productId)}>В корзину</Button>
@@ -71,17 +73,15 @@ const ProductList = ({cartItems, setCartItems}) => {
         )
     }
 
+    let items;
+    if(data !== null){
+        items = renderItems(data);
+    }
+
     let sections;
     if(dataSections !== null){
         sections = renderSections(dataSections);
     }
-
-    let items;
-    if(dataProducts !== null){
-        items = renderItems(dataProducts);
-    }
-
-    console.log(cartItems);
     
     return (
         <div className="products__list">
@@ -91,4 +91,4 @@ const ProductList = ({cartItems, setCartItems}) => {
     )
 }
 
-export default ProductList;
+export default ProductsBySectionPage;

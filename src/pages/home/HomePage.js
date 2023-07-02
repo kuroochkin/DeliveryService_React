@@ -1,6 +1,5 @@
-import { useState } from "react";
 import ProductList from "../../components/productList/ProductList";
-import Sidebar from "../../components/sidebar/Sidebar";
+import { Button } from "@mui/material";
 
 
 const HomePage = ({cartItems, setCartItems}) => {
