@@ -49,6 +49,11 @@ const useOrderService = () => {
         return res;
     }
 
+    const getCustomerById = async () => {
+        const res = await getResource(`https://localhost:7038/api/customer/profile`);
+        return res;
+    }
+
     const getAllOrdersByCreate = async () => {
         const res = await getResource(_apiBase + `order/allOrdersByCreate`);
         console.log(res);
@@ -112,6 +117,7 @@ const useOrderService = () => {
         confirmOrder,
         completeOrder,
         getOrderById,
+        getCustomerById,
         getAllOrdersByCreate,
         getAllOrdersByCustomer,
         getOrdersByCustomerByStatus,

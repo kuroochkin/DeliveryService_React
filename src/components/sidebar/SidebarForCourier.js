@@ -54,7 +54,7 @@ const SidebarForCourier = ({setIsAuth}) => {
            <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
                <div className="top_section">
                 <Link to={"/courier"}>
-                    <h1 style={{display: isOpen ? "block" : "none", "color": "white"}} className="logo">Самокат</h1>
+                    <h1 style={{display: isOpen ? "block" : "none", "color": "white"}} className="logo">Delivery</h1>
                 </Link>
                    <div style={{marginLeft: isOpen ? "25px" : "0px"}} className="bars">
                        <FaBars onClick={toggle}/>

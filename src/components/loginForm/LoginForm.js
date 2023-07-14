@@ -33,6 +33,7 @@ const LoginForm = ({setToken, setIsAuth}) => {
             console.log(data.token);
 			setIsAuth(true);
             console.log(data.typeUser);
+            console.log(data.Id);
 			if (data.typeUser === 'Customer'){
                 sessionStorage.setItem('typeUser', 'Customer');
                 navigate('/home'); 
