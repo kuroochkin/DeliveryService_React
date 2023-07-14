@@ -19,11 +19,6 @@ const SingleOrderPage = () => {
 
     console.log(data);
 
-    // let totalPrice;
-    // data.products.map(product => {
-    //     totalPrice = totalPrice + (product.count * product.price);
-    // })
-
     let count = 0;
     const totalCount = () => {
         data.products.map(product => {
