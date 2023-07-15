@@ -54,6 +54,11 @@ const useOrderService = () => {
         return res;
     }
 
+    const getCourierById = async () => {
+        const res = await getResource(`https://localhost:7038/api/courier/profile`);
+        return res;
+    }
+
     const getAllOrdersByCreate = async () => {
         const res = await getResource(_apiBase + `order/allOrdersByCreate`);
         console.log(res);
@@ -118,6 +123,7 @@ const useOrderService = () => {
         completeOrder,
         getOrderById,
         getCustomerById,
+        getCourierById,
         getAllOrdersByCreate,
         getAllOrdersByCustomer,
         getOrdersByCustomerByStatus,

@@ -15,6 +15,7 @@ import OrdersCustomerByStatusPage from "../../pages/orders/OrdersCustomerByStatu
 import ProductsBySectionPage from "../../pages/products/ProductsBySectionPage";
 import PaymentForm from "../payment/PaymentForm";
 import CustomerProfilePage from "../../pages/customer/profile/CustomerProfilePage";
+import CourierProfilePage from "../../pages/courier/profile/CourierProfilePage";
 import './App.css';
 
 
@@ -66,6 +67,7 @@ function App() {
               <Route path="/allOrdersByCreate" element={<AllOrdersByCreatePage/>}/>
               <Route path="/courierOrders/Progress" element={<AllOrdersCourierByStatusProgress/>}/>
               <Route path="/courierOrders/Complete" element={<AllOrdersCourierByStatusComplete/>}/>
+              <Route path="/profile" element={<CourierProfilePage/>}/>
             </Routes> 
         </div>
       </div>

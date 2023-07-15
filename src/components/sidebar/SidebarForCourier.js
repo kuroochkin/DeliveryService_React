@@ -28,7 +28,7 @@ const SidebarForCourier = ({setIsAuth}) => {
 
     const menuItem=[   
         {
-            path:"/about",
+            path:"/profile",
             name:"Мой профиль",
             icon:<FaUserAlt/>
         },
