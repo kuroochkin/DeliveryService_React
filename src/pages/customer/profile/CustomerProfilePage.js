@@ -1,10 +1,14 @@
 import useOrderService from "../../../services/OrderService";
 import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
 import './customerProfilePage.scss';
+import { useNavigate } from "react-router-dom";
 
 const CustomerProfilePage = () => {
 
     const [data, setData] = useState(null);
+
+    const navigate = useNavigate();
 
     const {getCustomerById} = useOrderService();
 
@@ -14,6 +18,10 @@ const CustomerProfilePage = () => {
     }, []);
 
     console.log(data);
+
+    const Edit = () => {
+        navigate(`/editProfile`);
+    }
 
     const renderItems = (data) => {
 
@@ -27,6 +35,11 @@ const CustomerProfilePage = () => {
             <h3 class="title-3">Количество заказов: {data.countOrder}</h3>
             <h3 class="title-3">Номер телефона: {data.phoneNumber}</h3>
             <h3 class="title-3">Город: {data.city}</h3>
+            <div className="button__input">
+                    <Button variant="contained" size="medium" type="submit"                       
+                       onClick={() => Edit()}>Редактировать
+                    </Button>
+                </div>  
             </div>
         )   
     }
