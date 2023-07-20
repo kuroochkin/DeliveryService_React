@@ -5,6 +5,8 @@ import "./editProfile.scss";
 
 const EditProfile = ({setToken}) => {
 
+    const [data, setData] = useState();
+
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [lastName, setLastName] = useState();
@@ -15,8 +17,17 @@ const EditProfile = ({setToken}) => {
     const [itsOk, setItsOk] = useState(false);
     const [isRequest, setIsRequest] = useState(false);
 
-    const {registerUser, error, clearError} = useOrderService();
+    
+    const {getCustomerById, registerUser} = useOrderService();
 
+    useEffect(() => {
+        getCustomerById()
+            .then(data => setData(data));
+    }, []);
+
+    console.log(data);
+
+    
     const handleSubmit = async e => {
         e.preventDefault();
 
@@ -41,49 +52,45 @@ const EditProfile = ({setToken}) => {
         }
 
         setIsRequest(false);
-    }
-
-    useEffect(() => {
-        clearError();
-    }, []);
+    };
 
     return (
-        <div className="box">
+        <div className="cont">
             <form onSubmit={handleSubmit}> 
                 <div className="text input">
                     <label>
                         <p>Имя</p>
-                        <input type="text" onChange={e => setFirstName(e.target.value)}/>
+                        <input type="text" value={data.firstName} onChange={e => setFirstName(e.target.value)}/>
                     </label>
                 </div>
                 <div className="text input">
                     <label>
                         <p>Фамилия</p>
-                        <input type="text" onChange={e => setLastName(e.target.value)}/>
+                        <input type="text" value={data.lastName} onChange={e => setLastName(e.target.value)}/>
                     </label>
                 </div>
                 <div className="email input">
                     <label>
                         <p>Почта</p>
-                        <input type="text" onChange={e => setEmail(e.target.value)}/>
+                        <input type="text" value={data.email} onChange={e => setEmail(e.target.value)}/>
                     </label>
                 </div>
                 <div className="password input">
                     <label>
                         <p>Пароль</p>
-                        <input type="password" onChange={e => setPassword(e.target.value)}/>
+                        <input type="password" value={data.password} onChange={e => setPassword(e.target.value)}/>
                     </label>
                 </div>
                 <div className="text input">
                     <label>
                         <p>Номер телефона</p>
-                        <input type="text" onChange={e => setPhoneNumber(e.target.value)}/>
+                        <input type="text"  value={data.phoneNumber} onChange={e => setPhoneNumber(e.target.value)}/>
                     </label>
                 </div>
                 <div className="text input">
                     <label>
                         <p>Город</p>
-                        <input type="text" onChange={e => setCity(e.target.value)}/>
+                        <input type="text" value={data.city} onChange={e => setCity(e.target.value)}/>
                     </label>
                 </div>
                 <div className="button input">

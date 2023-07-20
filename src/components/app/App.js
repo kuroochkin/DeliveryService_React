@@ -16,6 +16,7 @@ import ProductsBySectionPage from "../../pages/products/ProductsBySectionPage";
 import PaymentForm from "../payment/PaymentForm";
 import CustomerProfilePage from "../../pages/customer/profile/CustomerProfilePage";
 import CourierProfilePage from "../../pages/courier/profile/CourierProfilePage";
+import EditProfile from "../editProfile/EditProfile";
 import './App.css';
 
 
@@ -45,6 +46,7 @@ function App() {
             <Routes>
               <Route path="/home" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
               <Route path="/profile" element={<CustomerProfilePage/>}/>
+              <Route path="/editProfile" element={<EditProfile setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
               <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
