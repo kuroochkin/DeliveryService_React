@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useOrderService from '../../services/OrderService';
+import { useNavigate } from 'react-router-dom';
 import './cart.scss';
 import { Button } from '@mui/material';
 import {
@@ -12,7 +12,7 @@ const Cart = ({cartItems, setCartItems}) => {
 
     const [description, setDescription] = useState();
 
-    const {createOrder} = useOrderService();
+    const navigate = useNavigate();
 
     cartItems.map(product => (+product.priceTotal));
     cartItems.map(product => (+product.count));
@@ -90,44 +90,9 @@ const Cart = ({cartItems, setCartItems}) => {
         })
     }
 
-    const handleSubmit = async e => {
-		e.preventDefault();
-
-        console.log(cartItems);
-        console.log(description);
-
-        
-        const data1 = {
-            description: description,
-            products: [
-                
-            ]
-        };
-
-        for (let i = 0; i < cartItems.length; i++) {
-            data1.products[i] = {};
-            cartItems[i].priceTotal = cartItems[i].priceTotal.replace(/\./g, ',');
-            data1.products[i].productId = cartItems[i].productId;
-            data1.products[i].totalPrice = cartItems[i].priceTotal;
-            data1.products[i].count = String(cartItems[i].count);
-            data1.products[i].thumbnail = cartItems[i].thumbnail;
-            data1.products[i].title = cartItems[i].title;
-        }
-
-		const data = await createOrder(data1);
-
-        console.log(data);
-
-		if (data?.status === 500){
-			e.target.reset(); 
-		}
-		else{
-			console.log('Все успешно!');
-		}
-
-        setCartItems(cartItems => cartItems = []);
-	}
-
+    const handleSubmit = () => {
+        navigate(`/payment`);
+    }
 
     const renderItems = (data) => {
 

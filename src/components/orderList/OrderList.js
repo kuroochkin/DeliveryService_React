@@ -118,8 +118,7 @@ const OrderList = ({setIsAuth}) => {
     return (
         <div className='orderlist_container'>
             {data !== null ? items : null}
-        </div>
-        
+        </div> 
     )
 }
 

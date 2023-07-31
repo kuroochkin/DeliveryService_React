@@ -185,7 +185,8 @@
   }
   
   .cart-footer__count {
-    grid-column-start: 3;
+    grid-column-start: 0;
+    margin-left: -25px;
   }
   @media (max-width: 600px) {
     .cart-footer__count {

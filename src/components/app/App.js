@@ -13,6 +13,10 @@ import AllOrdersCourierByStatusProgress from "../../pages/courier/allOrdersCouri
 import AllOrdersCourierByStatusComplete from "../../pages/courier/allOrdersCourierByStatusProgress/AllOrdersCourierByStatusCompletePage";
 import OrdersCustomerByStatusPage from "../../pages/orders/OrdersCustomerByStatusPage";
 import ProductsBySectionPage from "../../pages/products/ProductsBySectionPage";
+import PaymentForm from "../payment/PaymentForm";
+import CustomerProfilePage from "../../pages/customer/profile/CustomerProfilePage";
+import CourierProfilePage from "../../pages/courier/profile/CourierProfilePage";
+import EditProfile from "../editProfile/EditProfile";
 import './App.css';
 
 
@@ -24,7 +28,7 @@ function App() {
 
 
     if(!token && !isAuth) {
-		console.log('Токена нет')
+		console.log('Токена нет');
 		return (
 			<>
 				<AuthForm setToken={setToken} setIsAuth={setIsAuth} />
@@ -41,12 +45,15 @@ function App() {
           <Sidebar setIsAuth={setIsAuth}/>
             <Routes>
               <Route path="/home" element={<HomePage cartItems={cartItems} setCartItems={setCartItems}/>}/>
+              <Route path="/profile" element={<CustomerProfilePage/>}/>
+              <Route path="/editProfile" element={<EditProfile setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/login" element={<AuthForm setToken={setToken} setIsAuth={setIsAuth}/>}/>
               <Route path="/orders" element={<OrdersPage/>}/>
               <Route path="/orders/:status" element={<OrdersCustomerByStatusPage/>}/>
               <Route path="/order/:orderId" element={<SingleOrderPage/>}/>
               <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems}/>}/> 
               <Route path="/product/:sectionId" element={<ProductsBySectionPage cartItems={cartItems} setCartItems={setCartItems}/>}/>
+              <Route path="/payment" element={<PaymentForm cartItems={cartItems} setCartItems={setCartItems} setIsAuth={setIsAuth}/>}/>
             </Routes> 
         </div>
       </div>
@@ -62,6 +69,7 @@ function App() {
               <Route path="/allOrdersByCreate" element={<AllOrdersByCreatePage/>}/>
               <Route path="/courierOrders/Progress" element={<AllOrdersCourierByStatusProgress/>}/>
               <Route path="/courierOrders/Complete" element={<AllOrdersCourierByStatusComplete/>}/>
+              <Route path="/profile" element={<CourierProfilePage/>}/>
             </Routes> 
         </div>
       </div>
