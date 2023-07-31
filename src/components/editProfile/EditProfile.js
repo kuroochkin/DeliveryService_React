@@ -19,32 +19,39 @@ const EditProfile = ({setToken}) => {
 
     const [typePass, setTypePass] = useState("password");
 
-    const {getCustomerById, registerUser} = useOrderService();
+    const {getCustomerById, editCustomerProfile} = useOrderService();
 
     useEffect(() => {
         getCustomerById()
             .then(data => setData(data));
     }, []);
 
-
     console.log(data);
 
+    // let countOrder = data.countOrder;
+    // let customerId = data.id;
+    // let birthday = data.birthDay;
     
     const handleSubmit = async e => {
         e.preventDefault();
 
         setIsRequest(true);
 
-        const data = await registerUser({
+        const data1 = await editCustomerProfile({
+            // customerId,
+            // birthday,
+            // city,
+            // countOrder,
+            email,
+            password,
             firstName,
             lastName,
-            email,
-            password
+            phoneNumber
         });
 
-        console.log(data);
+        console.log(data1);
 
-        if (data?.status === 500){
+        if (data1?.status === 500){
 			console.log('Очистка формы')
 			e.target.reset(); 
 		}

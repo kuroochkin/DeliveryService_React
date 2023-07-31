@@ -2,7 +2,7 @@ import {useHttp} from '../hooks/http.hook';
 
 const useOrderService = () => {
     const {request, error, clearError} = useHttp();
-    const _apiBase = 'https://localhost:7038/api/';
+    const _apiBase = 'http://localhost:7038/api/';
 
     const getToken = () => {
         const tokenString = sessionStorage.getItem('token');
@@ -43,6 +43,12 @@ const useOrderService = () => {
         'Authorization': 'Bearer ' + getToken()})
     }
 
+    const editCustomerProfile = async(data) => {
+        const url = `${_apiBase}customer/editProfile`;
+        return await request(url, 'POST', JSON.stringify(data), {'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getToken()})
+    }
+
     const getOrderById = async (id) => {
         const res = await getResource(_apiBase + `order/${id}`);
         console.log(res);
@@ -50,23 +56,22 @@ const useOrderService = () => {
     }
 
     const getCustomerById = async () => {
-        const res = await getResource(`https://localhost:7038/api/customer/profile`);
+        const res = await getResource(`http://localhost:7038/api/customer/profile`);
         return res;
     }
 
     const getCourierById = async () => {
-        const res = await getResource(`https://localhost:7038/api/courier/profile`);
+        const res = await getResource(`http://localhost:7038/api/courier/profile`);
         return res;
     }
 
     const getAllOrdersByCreate = async () => {
         const res = await getResource(_apiBase + `order/allOrdersByCreate`);
-        console.log(res);
         return res;
     }
 
     const getAllOrdersByCustomer = async () => {
-        const res = await getResource('https://localhost:7038/api/order/customerOrders');
+        const res = await getResource('http://localhost:7038/api/order/customerOrders');
         console.log(res);
         return res;
     }
@@ -133,7 +138,8 @@ const useOrderService = () => {
         getProductsBySectionId,
         getAllSections,
         getAllProducts,
-        getProductById
+        getProductById,
+        editCustomerProfile
     };
 };
 

@@ -12,7 +12,7 @@ const ProductList = ({cartItems, setCartItems}) => {
     
     const navigate = useNavigate();
 
-    const {getAllProducts, getAllSections} = useOrderService();
+    const {getAllProducts, getAllSections, getCities} = useOrderService();
 
     useEffect(() => {
         getAllProducts()
